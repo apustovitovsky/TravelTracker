@@ -1,0 +1,24 @@
+{
+  "originHash" : "555374e6be5e0ab4c65ff0fd8fe18f53eaaf47b6aaea773cfaf7564f9c9db56b",
+  "pins" : [
+    {
+      "identity" : "route-composer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ekazaev/route-composer",
+      "state" : {
+        "revision" : "54f23cdd9b56099a5c2e27b1a8b475a0ee702833",
+        "version" : "2.10.5"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit",
+      "state" : {
+        "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
+        "version" : "5.7.1"
+      }
+    }
+  ],
+  "version" : 3
+}

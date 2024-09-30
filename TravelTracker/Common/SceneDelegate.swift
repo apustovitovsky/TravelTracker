@@ -1,22 +1,35 @@
-//
-//  SceneDelegate.swift
-//  TravelTracker
-//
-//  Created by Алексей on 15.09.2024.
-//
-
 import UIKit
+import RouteComposer
+
+// MARK: - Scene Delegate
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let scene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: scene)
+        window?.rootViewController = UIViewController()
+        window?.makeKeyAndVisible()
+        
+        let step = ApplicationConfiguration.stepToHome
+        let keypad: [PinEntryModel.Button] = [
+            .init(title: "1", actionType: .add(1)),
+            .init(title: "2", actionType: .add(2)),
+            .init(title: "3", actionType: .add(3)),
+            .init(title: "4", actionType: .add(4)),
+            .init(title: "5", actionType: .add(5)),
+            .init(title: "6", actionType: .add(6)),
+            .init(title: "7", actionType: .add(7)),
+            .init(title: "8", actionType: .add(8)),
+            .init(title: "9", actionType: .add(9)),
+            .init(title: ""),
+            .init(title: "0", actionType: .add(0)),
+            .init(title: "⌫", actionType: .removeLast),
+        ]
+        let model = PinEntryModel(enteredPinDigits: [1,1,1], requiredPinLength: 5, buttons: keypad)
+        try? DefaultRouter().navigate(to: Destination(to: step, with: model))
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
