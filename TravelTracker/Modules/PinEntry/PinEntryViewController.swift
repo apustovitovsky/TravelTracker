@@ -4,13 +4,13 @@
 
 import UIKit
 
-//MARK: - Home View Controller Protocol
+//MARK: - PinEntryViewControllerProtocol
 
 protocol PinEntryViewControllerProtocol: AnyObject {
     func configure(with model: PinEntryModel)
 }
 
-//MARK: - Home View Controller
+//MARK: - PinEntryViewController
 
 final class PinEntryViewController: UIViewController {
     
@@ -36,6 +36,8 @@ final class PinEntryViewController: UIViewController {
         viewModel.viewDidLoad()
     }
 }
+
+//MARK: - PinEntryViewControllerProtocol Implementation
 
 extension PinEntryViewController: PinEntryViewControllerProtocol {
     func configure(with model: PinEntryModel) {

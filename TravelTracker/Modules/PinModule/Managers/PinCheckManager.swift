@@ -1,7 +1,7 @@
 import Foundation
 
 
-final class PinCheckManager: PinManagerProtocol {
+final class PinCodeCheckManager: PinCodeManagerProtocol {
 
     private enum Status: String {
         case enterPincode = "Enter PIN"
@@ -19,7 +19,7 @@ final class PinCheckManager: PinManagerProtocol {
         self.keychainManager = keychainManager
     }
     
-    func setPin(_ pin: String, completion: @escaping (PinManagerResult) -> Void) {
+    func setPin(_ pin: String, completion: @escaping (PinCodeManagerResult) -> Void) {
         let result = keychainManager.load(key: "PIN")
 
         switch result {

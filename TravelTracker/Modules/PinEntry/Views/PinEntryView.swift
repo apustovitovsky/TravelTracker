@@ -17,9 +17,7 @@ final class PinEntryView: UIView {
     
     private enum Dimensions {
         static let circleSize: CGFloat = 16
-        static let buttonSize: CGFloat = 56
-        static let circleSpacing: CGFloat = 24
-        static let buttonSpacing: CGFloat = 42
+
         static let verticalOffset: CGFloat = 64
         static let promptToCirclesOffset: CGFloat = 32
         static let bottomInset: CGFloat = 48
@@ -37,22 +35,14 @@ final class PinEntryView: UIView {
     
     //MARK: - pinCirclesStackView
     
-    private lazy var circlesView: PinEntryIndicatorView = {
-        let stackView = PinEntryIndicatorView()
-        stackView.axis = .horizontal
-        stackView.distribution = .equalCentering
-        stackView.spacing = Dimensions.circleSpacing
-        return stackView
+    private lazy var indicatorView = {
+        PinEntryIndicatorView()
     }()
     
     //MARK: - pinKeyboardStackView
     
-    private lazy var KeypadView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .equalCentering
-        stackView.spacing = Dimensions.buttonSpacing
-        return stackView
+    private lazy var keypadView = {
+        PinEntryKeypadView()
     }()
     
     override func layoutSubviews() {
@@ -68,8 +58,8 @@ extension PinEntryView: PinEntryViewProtocol {
     
     func configure(with model: PinEntryModel) {
         setupPromptLabel(with: model)
-        circlesView.configure(with: model)
-        setupKeypad(with: model)
+        indicatorView.configure(with: model)
+        keypadView.configure(with: model)
     }
 }
 
@@ -81,20 +71,20 @@ private extension PinEntryView {
         backgroundColor = .init(named: "bg")
         
         addSubview(hintLabel)
-        addSubview(circlesView)
-        addSubview(KeypadView)
+        addSubview(indicatorView)
+        addSubview(keypadView)
         
         hintLabel.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).offset(Dimensions.verticalOffset)
             make.centerX.equalToSuperview()
         }
         
-        circlesView.snp.makeConstraints { make in
+        indicatorView.snp.makeConstraints { make in
             make.top.equalTo(hintLabel.snp.bottom).offset(Dimensions.promptToCirclesOffset)
             make.centerX.equalToSuperview()
         }
         
-        KeypadView.snp.makeConstraints { make in
+        keypadView.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide).inset(Dimensions.bottomInset)
             make.centerX.equalToSuperview()
         }
@@ -109,49 +99,49 @@ private extension PinEntryView {
     // MARK: - setupPinKeyboard
     
     func setupKeypad(with model: PinEntryModel) {
-        KeypadView.subviews.forEach { $0.removeFromSuperview() }
-        
-        let buttons = model.buttons
-        for i in stride(from: 0, to: buttons.count, by: 3) {
-            let chunk = Array(buttons[i..<min(i + 3, buttons.count)])
-            let rowView = UIStackView()
-            rowView.axis = .horizontal
-            rowView.distribution = .equalCentering
-            rowView.spacing = Dimensions.buttonSpacing
-            
-            chunk.forEach { button in
-                let button = createButton(with: button) { action in
-                    model.handler?(action)
-                }
-                rowView.addArrangedSubview(button)
-            }
-            KeypadView.addArrangedSubview(rowView)
-        }
+//        keypadView.subviews.forEach { $0.removeFromSuperview() }
+//        
+//        let buttons = model.buttons
+//        stride(from: 0, to: buttons.count, by: 3).forEach { index in
+//            let chunk = Array(buttons[index..<min(index + 3, buttons.count)])
+//            let rowView = UIStackView()
+//            rowView.axis = .horizontal
+//            rowView.distribution = .equalCentering
+//            rowView.spacing = Dimensions.buttonSpacing
+//            
+//            chunk.forEach { button in
+//                let button = createButton(with: button) { action in
+//                    model.handler?(action)
+//                }
+//                rowView.addArrangedSubview(button)
+//            }
+//            keypadView.addArrangedSubview(rowView)
+//        }
     }
     
     // Creates an individual button for the pin keyboard
-    private func createButton(with model: PinEntryModel.Button, handler: @escaping Handler<PinEntryModel.Action>) -> UIButton {
-        let button = UIButton(type: .system)
-        button.isEnabled = model.state != .disabled
-        button.setTitle(model.title, for: .normal)
-        button.layer.cornerRadius = Dimensions.buttonSize / 2
-        button.setTitleColor(.init(named: "bgLight"), for: .disabled)
-        button.setTitleColor(.white, for: .normal)
+//    private func createButton(with model: PinEntryModel.Button, handler: @escaping Handler<PinEntryModel.Action>) -> UIButton {
+//        let button = UIButton(type: .system)
+//        button.isEnabled = model.state != .disabled
+//        button.setTitle(model.title, for: .normal)
+//        button.layer.cornerRadius = Dimensions.buttonSize / 2
+//        button.setTitleColor(.init(named: "bgLight"), for: .disabled)
+//        button.setTitleColor(.white, for: .normal)
+//        
+//        if let _ = Int(model.title) {
+//            button.titleLabel?.font = UIFont.systemFont(ofSize: 40)
+//        } else {
+//            button.titleLabel?.font = UIFont.systemFont(ofSize: 40) //32
+//        }
+//
+//        if let action = model.actionType {
+//            button.addAction(UIAction{ _ in handler(action) }, for: .touchUpInside)
+//        }
+//
+//        button.snp.makeConstraints { make in
+//            make.width.height.equalTo(Dimensions.buttonSize)
+//        }
         
-        if let _ = Int(model.title) {
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 40)
-        } else {
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 40) //32
-        }
-
-        if let action = model.actionType {
-            button.addAction(UIAction{ _ in handler(action) }, for: .touchUpInside)
-        }
-
-        button.snp.makeConstraints { make in
-            make.width.height.equalTo(Dimensions.buttonSize)
-        }
-        
-        return button
-    }
+//        return button
+//    }
 }

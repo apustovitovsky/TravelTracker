@@ -14,21 +14,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         
         let step = ApplicationConfiguration.stepToHome
-        let keypad: [PinEntryModel.Button] = [
-            .init(title: "1", actionType: .add(1)),
-            .init(title: "2", actionType: .add(2)),
-            .init(title: "3", actionType: .add(3)),
-            .init(title: "4", actionType: .add(4)),
-            .init(title: "5", actionType: .add(5)),
-            .init(title: "6", actionType: .add(6)),
-            .init(title: "7", actionType: .add(7)),
-            .init(title: "8", actionType: .add(8)),
-            .init(title: "9", actionType: .add(9)),
-            .init(title: ""),
-            .init(title: "0", actionType: .add(0)),
-            .init(title: "⌫", actionType: .removeLast),
-        ]
-        let model = PinEntryModel(enteredPinDigits: [1,1,1], requiredPinLength: 5, buttons: keypad)
+        var buttons: [PinEntryModel.Button] = (1...9).map { index in
+                .init(title: "\(index)", action: .add(index))
+        }
+        buttons.append(.init(title: "E", action: .removeLast))
+        buttons.append(.init(title: "0"))
+        buttons.append(.init(title: "⌫", action: .removeLast))
+
+        
+
+        let keypad = PinEntryModel.KeypadView(buttons: buttons)
+        let model = PinEntryModel(enteredDigits: [], requiredPinLength: 4, keypadView: keypad, indicatorView: PinEntryModel.IndicatorView())
+
         try? DefaultRouter().navigate(to: Destination(to: step, with: model))
     }
 

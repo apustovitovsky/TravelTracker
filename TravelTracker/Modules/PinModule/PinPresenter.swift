@@ -18,11 +18,11 @@ final class PinPresenter: PinModuleOutput {
     
     weak var view: PinViewProtocol?
     var completion: ((Result<Bool, Error>) -> Void)?
-    private let pinManager: PinManagerProtocol
+    private let pinManager: PinCodeManagerProtocol
     private let pinLength = 6
     private var pinCode: [Int] = []
     
-    init(pinManager: PinManagerProtocol) {
+    init(pinManager: PinCodeManagerProtocol) {
         self.pinManager = pinManager
     }
 }

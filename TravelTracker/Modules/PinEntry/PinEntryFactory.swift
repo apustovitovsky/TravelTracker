@@ -16,7 +16,7 @@ final class PinEntryFactory: Factory {
         let viewModel = PinEntryViewModel(
             model: context,
             dependencies: .init(
-                pinManager: PinCheckManager(keychainManager: KeychainManager())
+                pinManager: DefaultPinManager()
             )
         )
         let viewController = PinEntryViewController(viewModel: viewModel)

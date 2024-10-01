@@ -5,82 +5,118 @@
 import UIKit
 import SnapKit
 
-//MARK: - CircleView
+
+//MARK: - PinEntryIndicatorViewProtocol
 
 protocol PinEntryIndicatorViewProtocol: AnyObject {
     func configure(with model: PinEntryModel)
 }
 
+//MARK: - PinEntryIndicatorView
+
 final class PinEntryIndicatorView: UIStackView {
     
-    private enum Dimensions {
-        static let circleSize: CGFloat = 16
-        static let circleSizeMultiplier: CGFloat = 1.3
+    private enum Configuration {
+        static let subviewSpacing: CGFloat = 20
+        static let subviewSize: CGFloat = 16
+        static let subvviewSizeMultiplier: CGFloat = 1.3
+        static let subviewAnimationTime: CGFloat = 0.2
+    }
+    
+    private var indicatorSubviews: [UIView] = []
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureView()
+    }
+    
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
+        configureView()
     }
 }
 
-//MARK: - CircleViewProtocol Implementation
+//MARK: - PinEntryIndicatorView Implementation
 
 extension PinEntryIndicatorView: PinEntryIndicatorViewProtocol {
     
     func configure(with model: PinEntryModel) {
-        setupDotViews(with: model)
+        configureSubviews(with: model)
     }
 }
 
-//MARK: - Private Methods
+//MARK: - PinEntryIndicatorView Private Methods
 
 private extension PinEntryIndicatorView {
     
-    func setupDotViews(with model: PinEntryModel) {
-        subviews.forEach { $0.removeFromSuperview() }
-        
-        // Создаем кружки на основе количества символов для ввода PIN-кода
-        for index in 0..<model.requiredPinLength {
-            let pinCircleView = UIView()
-            pinCircleView.layer.cornerRadius = Dimensions.circleSize / 2
+    func configureView() {
+        axis = .horizontal
+        distribution = .equalCentering
+        spacing = Configuration.subviewSpacing
+    }
+    
+    func configureSubviews(with model: PinEntryModel) {
+        if indicatorSubviews.isEmpty {
+            createSubviews(count: model.requiredPinLength)
+        }
+        updateSubviews(for: model)
+    }
+    
+    func createSubviews(count: Int) {
+        (0..<count).forEach { _ in
+            let view = UIView()
+            view.layer.cornerRadius = Configuration.subviewSize / 2
+            view.backgroundColor = .init(named: "bgLight")
             
-            // Устанавливаем цвет фона в зависимости от того, активен ли кружок
-            pinCircleView.backgroundColor = index < model.enteredPinDigits.count ? UIColor(named: "accent") : UIColor(named: "bgLight")
+            addArrangedSubview(view)
+            indicatorSubviews.append(view)
             
-            addArrangedSubview(pinCircleView)
-
-            pinCircleView.snp.makeConstraints { make in
-                make.width.height.equalTo(Dimensions.circleSize)
-            }
-            
-            // Если кружок активен, проверяем, нужно ли его анимировать
-            if index < model.enteredPinDigits.count {
-                if index >= model.previousPinDigits.count {
-                    // Анимация для нового активного кружка
-                    animatePinChange(pinCircleView, duration: 0.2)
-                } else {
-                    // Увеличение без анимации для уже активных кружков
-                    animatePinChange(pinCircleView)
-                }
+            view.snp.makeConstraints {
+                $0.width.height.equalTo(Configuration.subviewSize)
             }
         }
     }
     
-    // Анимация изменения состояния кружка
-    func animatePinChange(_ pinCircleView: UIView, duration: Double? = nil) {
-        // Если продолжительность не задана, просто увеличиваем кружок
-        guard let duration = duration else {
-            pinCircleView.transform = CGAffineTransform(scaleX: Dimensions.circleSizeMultiplier, y: Dimensions.circleSizeMultiplier)
-            return
+    func AnimateFailureEffect() {
+        indicatorSubviews.forEach { view in
+            
+                view.backgroundColor = .red
+            
         }
+
+    }
         
-        // Анимация для активных кружков с плавным изменением
+    func updateSubviews(for model: PinEntryModel) {
+//        guard model.state == .normal else {
+//            AnimateFailureEffect()
+//            return
+//        }
+        indicatorSubviews.enumerated().forEach { index, view in
+            let isCurrentActive = index < model.indicatorView.pinLengthTo
+            let isPreviousActive = index < model.indicatorView.pinLengthFrom
+            guard isCurrentActive != isPreviousActive else { return }
+            
+            if isCurrentActive {
+                view.backgroundColor = UIColor(named: "accent")
+                animateSubview {
+                    let scale = Configuration.subvviewSizeMultiplier
+                    view.transform = CGAffineTransform(scaleX: scale, y: scale)
+                }
+            } else {
+                view.transform = .identity
+                view.backgroundColor = UIColor(named: "bgLight")
+            }
+        }
+    }
+        
+    func animateSubview(_ animation: @escaping Action) {
         UIView.animate(
-            withDuration: duration,
+            withDuration: Configuration.subviewAnimationTime,
             delay: 0,
             usingSpringWithDamping: 0.5,
             initialSpringVelocity: 0.5,
-            options: .curveEaseInOut,
-            animations: {
-                pinCircleView.transform = CGAffineTransform(scaleX: Dimensions.circleSizeMultiplier, y: Dimensions.circleSizeMultiplier)
-                pinCircleView.backgroundColor = UIColor(named: "accent")
-            }
-        )
+            options: .curveEaseOut,
+            animations: animation)
     }
 }
+

@@ -33,7 +33,8 @@
 		8A7277D72C9728BF00C03C73 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8A7277D62C9728BF00C03C73 /* Base */; };
 		8A7277E72C97302000C03C73 /* PinPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277E62C97302000C03C73 /* PinPresenter.swift */; };
 		8A7277F82C99B13300C03C73 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277F72C99B13300C03C73 /* KeychainManager.swift */; };
-		8A7277FA2C9B387F00C03C73 /* PinManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277F92C9B387F00C03C73 /* PinManagerProtocol.swift */; };
+		8A7277FA2C9B387F00C03C73 /* PinCodeManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277F92C9B387F00C03C73 /* PinCodeManagerProtocol.swift */; };
+		8ADF50D92CAC785800BB6CEA /* PinManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADF50D82CAC784E00BB6CEA /* PinManagerProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,7 +64,8 @@
 		8A7277D82C9728BF00C03C73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A7277E62C97302000C03C73 /* PinPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPresenter.swift; sourceTree = "<group>"; };
 		8A7277F72C99B13300C03C73 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
-		8A7277F92C9B387F00C03C73 /* PinManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinManagerProtocol.swift; sourceTree = "<group>"; };
+		8A7277F92C9B387F00C03C73 /* PinCodeManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeManagerProtocol.swift; sourceTree = "<group>"; };
+		8ADF50D82CAC784E00BB6CEA /* PinManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinManagerProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,7 +213,8 @@
 		8A7277FB2C9B388300C03C73 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				8A7277F92C9B387F00C03C73 /* PinManagerProtocol.swift */,
+				8ADF50D82CAC784E00BB6CEA /* PinManagerProtocol.swift */,
+				8A7277F92C9B387F00C03C73 /* PinCodeManagerProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -300,11 +303,12 @@
 				8A0C63232CA17E0400AE8C65 /* PinEntryView.swift in Sources */,
 				8A0C63252CA18E2400AE8C65 /* PinEntryViewModel.swift in Sources */,
 				8A0C62F92C9C553800AE8C65 /* PinCreationManager.swift in Sources */,
+				8ADF50D92CAC785800BB6CEA /* PinManagerProtocol.swift in Sources */,
 				8A0C63342CA95E5600AE8C65 /* PinEntryIndicatorView.swift in Sources */,
 				8A0C63272CA18EAD00AE8C65 /* PinEntryViewController.swift in Sources */,
 				8A7277D22C9728BD00C03C73 /* TravelTracker.xcdatamodeld in Sources */,
 				8A0C63032C9C99B500AE8C65 /* PinViewController.swift in Sources */,
-				8A7277FA2C9B387F00C03C73 /* PinManagerProtocol.swift in Sources */,
+				8A7277FA2C9B387F00C03C73 /* PinCodeManagerProtocol.swift in Sources */,
 				8A7277C82C9728BD00C03C73 /* AppDelegate.swift in Sources */,
 				8A0C63112C9EE37A00AE8C65 /* PinFactory.swift in Sources */,
 				8A0C631C2CA084E800AE8C65 /* Closures.swift in Sources */,

@@ -5,39 +5,60 @@
 import Foundation
 import UIKit
 
-//MARK: - HomeModel
+//MARK: - PinEntryModel
 
 struct PinEntryModel {
     
     enum State {
         case normal
-        case reloading
+        case updating
+    }
+
+    var enteredDigits: [Int] = [] {
+        willSet {
+            indicatorView.pinLengthFrom = enteredDigits.count
+        }
+        didSet {
+            indicatorView.pinLengthTo = enteredDigits.count
+        }
     }
     
     var state: State = .normal
     var title: String?
-    var enteredPinDigits: [Int] = []
-    var previousPinDigits: [Int] = []
+
     let requiredPinLength: Int
-    var buttons: [Button] = []
-    var handler: Handler<Action>?
+    var keypadView: KeypadView
+    var indicatorView: IndicatorView
 }
+
+//MARK: - IndicatorView
 
 extension PinEntryModel {
     
-    enum Action {
+    struct IndicatorView {
+        var pinLengthFrom: Int = 0
+        var pinLengthTo: Int = 0
+    }
+}
+
+//MARK: - KeypadView
+
+extension PinEntryModel {
+    
+    enum KeypadAction {
         case add(Int)
         case removeLast
     }
     
     struct Button {
-        var state: UIControl.State = .normal
         let title: String
-        var actionType: Action?
+        var action: KeypadAction?
+        var isEnabled: Bool = true
     }
     
     struct KeypadView {
-        var buttons: [Button] = []
-        var handler: Handler<Action>?
+        var buttons: [Button]
+        var handler: Handler<KeypadAction>?
+        var isEnabled: Bool = true
     }
 }

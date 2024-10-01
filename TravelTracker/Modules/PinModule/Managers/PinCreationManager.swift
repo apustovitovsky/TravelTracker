@@ -1,7 +1,7 @@
 import Foundation
 
 
-final class PinCreationManager: PinManagerProtocol {
+final class PinCodeCreationManager: PinCodeManagerProtocol {
 
     private enum Status: String {
         case createPin = "Create PIN"
@@ -22,7 +22,7 @@ final class PinCreationManager: PinManagerProtocol {
         self.keychainManager = keychainManager
     }
     
-    func setPin(_ pin: String, completion: (PinManagerResult) -> Void) {
+    func setPin(_ pin: String, completion: (PinCodeManagerResult) -> Void) {
         switch status {
         case .createPin:
             status = .repeatPin

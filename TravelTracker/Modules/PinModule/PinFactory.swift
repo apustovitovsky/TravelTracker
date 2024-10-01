@@ -14,7 +14,7 @@ class PinFactory: Factory {
     }
     
     func build(with _: Void) throws -> PinViewController {
-        let pinManager = PinCheckManager(keychainManager: KeychainManager())
+        let pinManager = PinCodeCheckManager(keychainManager: KeychainManager())
         let presenter = PinPresenter(pinManager: pinManager)
         let viewController = PinViewController(presenter: presenter)
         presenter.view = viewController
