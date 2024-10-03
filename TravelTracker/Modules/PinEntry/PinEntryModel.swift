@@ -10,8 +10,9 @@ import UIKit
 struct PinEntryModel {
     
     enum State {
-        case normal
-        case updating
+        case enterPin
+        case wrongPin
+        case setupPin(String?)
     }
 
     var enteredDigits: [Int] = [] {
@@ -23,7 +24,7 @@ struct PinEntryModel {
         }
     }
     
-    var state: State = .normal
+    var state: State = .enterPin
     var title: String?
 
     let requiredPinLength: Int
@@ -52,6 +53,7 @@ extension PinEntryModel {
     
     struct Button {
         let title: String
+        var image: UIImage?
         var action: KeypadAction?
         var isEnabled: Bool = true
     }

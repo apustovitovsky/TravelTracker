@@ -35,6 +35,7 @@
 		8A7277F82C99B13300C03C73 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277F72C99B13300C03C73 /* KeychainManager.swift */; };
 		8A7277FA2C9B387F00C03C73 /* PinCodeManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277F92C9B387F00C03C73 /* PinCodeManagerProtocol.swift */; };
 		8ADF50D92CAC785800BB6CEA /* PinManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADF50D82CAC784E00BB6CEA /* PinManagerProtocol.swift */; };
+		8ADF50DD2CAF297B00BB6CEA /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADF50DC2CAF297800BB6CEA /* test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		8A7277F72C99B13300C03C73 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		8A7277F92C9B387F00C03C73 /* PinCodeManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeManagerProtocol.swift; sourceTree = "<group>"; };
 		8ADF50D82CAC784E00BB6CEA /* PinManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinManagerProtocol.swift; sourceTree = "<group>"; };
+		8ADF50DC2CAF297800BB6CEA /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 		8A0C63212CA15D0400AE8C65 /* PinEntry */ = {
 			isa = PBXGroup;
 			children = (
+				8ADF50DC2CAF297800BB6CEA /* test.swift */,
 				8A0C63352CA9F93C00AE8C65 /* Views */,
 				8A0C63282CA18ED800AE8C65 /* PinEntryFactory.swift */,
 				8A0C632A2CA18F1500AE8C65 /* PinEntryModel.swift */,
@@ -315,6 +318,7 @@
 				8A0C62F62C9C418D00AE8C65 /* PinCheckManager.swift in Sources */,
 				8A7277CA2C9728BD00C03C73 /* SceneDelegate.swift in Sources */,
 				8A0C63172CA0187800AE8C65 /* DefaultVC.swift in Sources */,
+				8ADF50DD2CAF297B00BB6CEA /* test.swift in Sources */,
 				8A0C631E2CA0A0C500AE8C65 /* ContextHolder.swift in Sources */,
 				8A0C63372CA9F97300AE8C65 /* PinEntryKeypadView.swift in Sources */,
 				8A7277E72C97302000C03C73 /* PinPresenter.swift in Sources */,

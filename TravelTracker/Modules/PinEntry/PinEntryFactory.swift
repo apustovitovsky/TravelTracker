@@ -5,7 +5,7 @@
 import Foundation
 import RouteComposer
 
-// MARK: - HomeFactory
+// MARK: - PinEntryFactory
 
 final class PinEntryFactory: Factory {
     

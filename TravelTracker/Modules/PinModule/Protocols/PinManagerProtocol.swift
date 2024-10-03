@@ -7,12 +7,14 @@ import Foundation
 // MARK: - PinManagerProtocol
 
 protocol PinManagerProtocol {
-    func validate(pin: String, completion: @escaping (PinValidationResult) -> Void)
+    func isPinStored() -> Bool
+    func checkPin(pin: String, completion: (PinManagerResult) -> Void)
+    func storePin(pin: String)
 }
 
 // MARK: - PinValidationResult
 
-enum PinValidationResult {
+enum PinManagerResult {
     case success
     case failure
 }
@@ -20,18 +22,16 @@ enum PinValidationResult {
 // MARK: - MockPinManager
 
 final class DefaultPinManager: PinManagerProtocol {
+    private var storedPin: String?
     
-    private let correctPin = "1234"
-    
-    func validate(pin: String, completion: @escaping (PinValidationResult) -> Void) {
-        // Simulating a delay for network or validation process
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            if pin == self.correctPin {
-                completion(.success)
-            } else {
-                completion(.failure)
-            }
-        }
+    func isPinStored() -> Bool {
+        return storedPin != .none
+    }
+    func checkPin(pin: String, completion: (PinManagerResult) -> Void) {
+        completion(storedPin == pin ? .success : .failure)
+    }
+    func storePin(pin: String) {
+        return storedPin = pin
     }
 }
 

@@ -33,11 +33,17 @@ final class PinEntryViewModel {
 extension PinEntryViewModel: PinEntryViewModelProtocol {
     
     func viewDidLoad() {
-        model.title = "Alexey"
-        model.keypadView.handler = { [weak self] action in
-            self?.keypadButtonDidTap(action)
+        if !dependencies.pinManager.isPinStored() {
+            model.title = "Create PIN"
+            model.state = .setupPin(.none)
+        } else {
+            model.title = "Enter PIN"
         }
-        updateRemoveButtonsState()
+
+        model.keypadView.handler = { [weak self] action in
+            self?.handleKeypadAction(action)
+        }
+        updateKeypad()
         view?.configure(with: model)
     }
 }
@@ -46,73 +52,123 @@ extension PinEntryViewModel: PinEntryViewModelProtocol {
 
 private extension PinEntryViewModel {
     
-    func keypadButtonDidTap(_ action: PinEntryModel.KeypadAction) {
+    // MARK: - pinCode
+    
+    // Property to get and set entered digits. Updates the keypad whenever changes occur.
+    private var pinCode: [Int] {
+        set {
+            model.enteredDigits = newValue
+            updateKeypad()
+        }
+        get {
+            return model.enteredDigits
+        }
+    }
+    
+    // MARK: - handleKeypadAction
+    
+    // Respond to keypad button actions (add digit or remove last)
+    func handleKeypadAction(_ action: PinEntryModel.KeypadAction) {
         switch action {
         case .add(let digit):
-            guard model.enteredDigits.count < model.requiredPinLength else { return }
-
-            appendToPin(digit)
-
-            if model.enteredDigits.count == model.requiredPinLength {
-                let pinCode = model.enteredDigits.map(String.init).joined()
-                validatePin(with: pinCode)
+            // Ensure that the entered PIN does not exceed the required length
+            guard pinCode.count < model.requiredPinLength else { return }
+            
+            // Add the new digit to the entered PIN
+            pinCode.append(digit)
+            
+            // If the required number of digits is entered, process the PIN code
+            if pinCode.count == model.requiredPinLength {
+                handlePinCode()
             }
         case .removeLast:
-            if !model.enteredDigits.isEmpty {
-                removeFromPin()
+            if !pinCode.isEmpty {
+                // Remove the last digit from the entered PIN if it's not empty
+                pinCode.removeLast()
             }
         }
+        
+        // Update the view after each action
         view?.configure(with: model)
     }
     
-    func appendToPin(_ digit: Int) {
-        model.enteredDigits.append(digit)
-        updateRemoveButtonsState()
-    }
+    // MARK: - updateKeypad
     
-    func removeFromPin(_ all: Bool = false) {
-        if all {
-            model.enteredDigits.removeAll()
-        } else {
-            model.enteredDigits.removeLast()
-        }
-        updateRemoveButtonsState()
-    }
-    
-    func updateRemoveButtonsState() {
-        let isEnabled = !model.enteredDigits.isEmpty
+    func updateKeypad() {
         model.keypadView.buttons = model.keypadView.buttons.map { button in
             guard case .removeLast = button.action else { return button }
             var updatedButton = button
-            updatedButton.isEnabled = isEnabled
+            updatedButton.isEnabled = !pinCode.isEmpty
             return updatedButton
         }
     }
         
-    func validatePin(with pinCode: String) {
+    // MARK: - handlePinCode
+    
+    func handlePinCode() {
         
-        // Change model state to .updating and turn off keypad.
-        model.state = .updating
-        model.keypadView.isEnabled = false
-        
-        dependencies.pinManager.validate(pin: pinCode) { [weak self] result in
-            guard let self else { return }
+        // Map collected PIN digits into a string and clear it
+        let enteredPinCode = pinCode.map(String.init).joined()
+        pinCode.removeAll()
 
+        // Handle PIN code string depending on model state
+        switch model.state {
+        case .enterPin:
+            handleEnterPinState(enteredPinCode)
+        case .setupPin(let storedPinCode):
+            handleSetupPinState(enteredPinCode, storedPin: storedPinCode)
+        case .wrongPin:
+            handleWrongPinState(enteredPinCode)
+        }
+
+        view?.configure(with: model)
+    }
+    
+    // MARK: - handleEnterPinState
+    
+    func handleEnterPinState(_ pinCode: String) {
+        dependencies.pinManager.checkPin(pin: pinCode) { [weak self] result in
             switch result {
             case .success:
-                print("success!")
+                self?.model.title = "PIN is ok"
+                self?.model.state = .setupPin(.none)
             case .failure:
-                
-                // Return model state to .normal and make keypad enabled again.
-                self.model.state = .normal
-                self.model.keypadView.isEnabled = true
-                
-                self.removeFromPin(true)
-                self.model.title = "Wrong PIN"
+                self?.model.title = "PIN is invalid"
+                self?.model.state = .wrongPin
             }
-            self.view?.configure(with: self.model)
         }
-        view?.configure(with: model)
+    }
+    
+    // MARK: - handleSetupPinState
+    
+    func handleSetupPinState(_ pinCode: String, storedPin: String?) {
+        if let storedPin {
+            if pinCode == storedPin {
+                model.title = "PIN created"
+                model.keypadView.isEnabled = false
+                dependencies.pinManager.storePin(pin: pinCode)
+            } else {
+                model.title = "PIN missmatch"
+            }
+        } else {
+            model.title = "Repeat PIN"
+            model.state = .setupPin(pinCode)
+        }
+    }
+    
+    //MARK: - handleWrongPinState
+    
+    func handleWrongPinState(_ pinCode: String) {
+        dependencies.pinManager.checkPin(pin: pinCode) { [weak self] result in
+            switch result {
+            case .success:
+                self?.model.title = "PIN is valid"
+                self?.model.state = .setupPin(.none)
+            case .failure:
+                self?.model.title = "PIN entry suspended"
+                self?.model.keypadView.isEnabled = false
+            }
+        }
     }
 }
 
