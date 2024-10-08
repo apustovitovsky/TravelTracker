@@ -8,23 +8,24 @@ import UIKit
 
 protocol PinEntryViewModelProtocol: AnyObject {
     func viewDidLoad()
+    var completion: Action? { get set }
 }
 
 //MARK: - PinEntryViewModel
 
-final class PinEntryViewModel {
+final class PinEntryViewModel<PinFlow: PinFlowProtocol> where PinFlow.Result == PinEntryModel.Result {
     
-    struct Dependencies {
-        let pinManager: PinManagerProtocol
-    }
+    var completion: Action?
     
     weak var view: PinEntryViewControllerProtocol?
     private var model: PinEntryModel
-    private let dependencies: Dependencies
     
-    init(model: PinEntryModel, dependencies: Dependencies) {
+    private let coordinator: PinFlow
+    private var pinStep: Handler<String>?
+    
+    init(model: PinEntryModel, pinFlow: PinFlow) {
         self.model = model
-        self.dependencies = dependencies
+        self.coordinator = pinFlow
     }
 }
 
@@ -33,16 +34,18 @@ final class PinEntryViewModel {
 extension PinEntryViewModel: PinEntryViewModelProtocol {
     
     func viewDidLoad() {
-        if !dependencies.pinManager.isPinStored() {
-            model.title = "Create PIN"
-            model.state = .setupPin(.none)
-        } else {
-            model.title = "Enter PIN"
-        }
-
+        
+        // Setup keypad Handler
         model.keypadView.handler = { [weak self] action in
-            self?.handleKeypadAction(action)
+            self?.handleKeypad(action)
         }
+        
+        // Setup Coordinator Handler
+        coordinator.handler = { [weak self] result in
+            self?.handleCoordinator(result)
+        }
+        
+        pinStep = coordinator.start()
         updateKeypad()
         view?.configure(with: model)
     }
@@ -52,9 +55,8 @@ extension PinEntryViewModel: PinEntryViewModelProtocol {
 
 private extension PinEntryViewModel {
     
-    // MARK: - pinCode
-    
-    // Property to get and set entered digits. Updates the keypad whenever changes occur.
+    // MARK: - pinCode Property
+
     private var pinCode: [Int] {
         set {
             model.enteredDigits = newValue
@@ -65,30 +67,29 @@ private extension PinEntryViewModel {
         }
     }
     
-    // MARK: - handleKeypadAction
+    // MARK: - handleCoordinator
     
-    // Respond to keypad button actions (add digit or remove last)
-    func handleKeypadAction(_ action: PinEntryModel.KeypadAction) {
+    func handleCoordinator(_ result: PinFlow.Result) {
+        if let title = result.title {
+            self.model.title = title
+        }
+    }
+    
+    // MARK: - handleKeypad
+    
+    func handleKeypad(_ action: PinEntryModel.KeypadAction) {
         switch action {
         case .add(let digit):
-            // Ensure that the entered PIN does not exceed the required length
             guard pinCode.count < model.requiredPinLength else { return }
-            
-            // Add the new digit to the entered PIN
             pinCode.append(digit)
-            
-            // If the required number of digits is entered, process the PIN code
             if pinCode.count == model.requiredPinLength {
                 handlePinCode()
             }
         case .removeLast:
             if !pinCode.isEmpty {
-                // Remove the last digit from the entered PIN if it's not empty
                 pinCode.removeLast()
             }
         }
-        
-        // Update the view after each action
         view?.configure(with: model)
     }
     
@@ -106,69 +107,9 @@ private extension PinEntryViewModel {
     // MARK: - handlePinCode
     
     func handlePinCode() {
-        
-        // Map collected PIN digits into a string and clear it
         let enteredPinCode = pinCode.map(String.init).joined()
         pinCode.removeAll()
-
-        // Handle PIN code string depending on model state
-        switch model.state {
-        case .enterPin:
-            handleEnterPinState(enteredPinCode)
-        case .setupPin(let storedPinCode):
-            handleSetupPinState(enteredPinCode, storedPin: storedPinCode)
-        case .wrongPin:
-            handleWrongPinState(enteredPinCode)
-        }
-
-        view?.configure(with: model)
-    }
-    
-    // MARK: - handleEnterPinState
-    
-    func handleEnterPinState(_ pinCode: String) {
-        dependencies.pinManager.checkPin(pin: pinCode) { [weak self] result in
-            switch result {
-            case .success:
-                self?.model.title = "PIN is ok"
-                self?.model.state = .setupPin(.none)
-            case .failure:
-                self?.model.title = "PIN is invalid"
-                self?.model.state = .wrongPin
-            }
-        }
-    }
-    
-    // MARK: - handleSetupPinState
-    
-    func handleSetupPinState(_ pinCode: String, storedPin: String?) {
-        if let storedPin {
-            if pinCode == storedPin {
-                model.title = "PIN created"
-                model.keypadView.isEnabled = false
-                dependencies.pinManager.storePin(pin: pinCode)
-            } else {
-                model.title = "PIN missmatch"
-            }
-        } else {
-            model.title = "Repeat PIN"
-            model.state = .setupPin(pinCode)
-        }
-    }
-    
-    //MARK: - handleWrongPinState
-    
-    func handleWrongPinState(_ pinCode: String) {
-        dependencies.pinManager.checkPin(pin: pinCode) { [weak self] result in
-            switch result {
-            case .success:
-                self?.model.title = "PIN is valid"
-                self?.model.state = .setupPin(.none)
-            case .failure:
-                self?.model.title = "PIN entry suspended"
-                self?.model.keypadView.isEnabled = false
-            }
-        }
+        pinStep?(enteredPinCode)
     }
 }
 

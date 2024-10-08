@@ -37,7 +37,7 @@ enum ApplicationConfiguration {
         )
         .with(home)
         .with(profile)
-        .with(settings, adapting: InlineContextTransformer{ _ in })
+        .with(settings)
         .assemble()
     )
     .using(GeneralAction.replaceRoot())
@@ -69,7 +69,7 @@ enum ApplicationConfiguration {
             navController.tabBarItem.image = .init(systemName: "gear")
         }
     )
-    .with(PinFactory())
+    .with(PinEntryFactory())
     .assemble()
     
     static var stepToHome = StepAssembly(

@@ -13,15 +13,9 @@ final class PinEntryFactory: Factory {
     typealias Context = PinEntryModel
     
     func build(with context: PinEntryModel) throws -> PinEntryViewController {
-        let viewModel = PinEntryViewModel(
-            model: context,
-            dependencies: .init(
-                pinManager: DefaultPinManager()
-            )
-        )
+        let viewModel = PinEntryViewModel(model: context, pinFlow: PinSetupFlow())
         let viewController = PinEntryViewController(viewModel: viewModel)
         viewModel.view = viewController
-
         return viewController
     }
 }

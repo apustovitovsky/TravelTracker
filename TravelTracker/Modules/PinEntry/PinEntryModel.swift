@@ -9,12 +9,22 @@ import UIKit
 
 struct PinEntryModel {
     
-    enum State {
-        case enterPin
+    enum EventType {
+        case none
+        case completion
         case wrongPin
-        case setupPin(String?)
     }
-
+    
+    struct Result {
+        let title: String?
+        let event: EventType
+        
+        init(_ title: String? = .none, event: EventType = .none) {
+            self.title = title
+            self.event = event
+        }
+    }
+    
     var enteredDigits: [Int] = [] {
         willSet {
             indicatorView.pinLengthFrom = enteredDigits.count
@@ -23,10 +33,8 @@ struct PinEntryModel {
             indicatorView.pinLengthTo = enteredDigits.count
         }
     }
-    
-    var state: State = .enterPin
-    var title: String?
 
+    var title: String?
     let requiredPinLength: Int
     var keypadView: KeypadView
     var indicatorView: IndicatorView
