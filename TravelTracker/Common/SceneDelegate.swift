@@ -14,17 +14,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         
         let step = ApplicationConfiguration.stepToHome
-        var buttons: [PinEntryModel.Button] = (1...9).map { index in
-                .init(title: "\(index)", action: .add(index))
+        var buttons: [PinCodeModel.KeypadView.Button] = (1...9).map { index in
+                .init(action: .append(index), title: "\(index)")
         }
-        buttons.append(.init(title: "E", action: .removeLast))
+        buttons.append(.init(action: .cancelFlow, title: "E"))
         buttons.append(.init(title: "0"))
-        buttons.append(.init(title: "⌫", action: .removeLast))
+        buttons.append(.init(action: .removeLast, title: "⌫"))
 
-        
-
-        let keypad = PinEntryModel.KeypadView(buttons: buttons)
-        let model = PinEntryModel(enteredDigits: [], requiredPinLength: 4, keypadView: keypad, indicatorView: PinEntryModel.IndicatorView())
+        let indicatorView = PinCodeModel.IndicatorView()
+        let keypad = PinCodeModel.KeypadView(buttons: buttons)
+        let model = PinCodeModel(keypadView: keypad, indicatorView: indicatorView)
 
         try? DefaultRouter().navigate(to: Destination(to: step, with: model))
     }

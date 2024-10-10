@@ -6,18 +6,18 @@ import UIKit
 
 //MARK: - PinEntryViewControllerProtocol
 
-protocol PinEntryViewControllerProtocol: AnyObject {
-    func configure(with model: PinEntryModel)
+protocol PinCodeViewControllerProtocol: AnyObject {
+    func configure(with model: PinCodeModel)
 }
 
 //MARK: - PinEntryViewController
 
-final class PinEntryViewController: UIViewController {
+final class PinCodeViewController: UIViewController {
     
-    private let viewModel: PinEntryViewModelProtocol
-    private lazy var customView = PinEntryView()
+    private let viewModel: PinCodeViewModelProtocol
+    private lazy var customView = PinCodeView()
     
-    init(viewModel: PinEntryViewModelProtocol) {
+    init(viewModel: PinCodeViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,8 +39,8 @@ final class PinEntryViewController: UIViewController {
 
 //MARK: - PinEntryViewControllerProtocol Implementation
 
-extension PinEntryViewController: PinEntryViewControllerProtocol {
-    func configure(with model: PinEntryModel) {
+extension PinCodeViewController: PinCodeViewControllerProtocol {
+    func configure(with model: PinCodeModel) {
         customView.configure(with: model)
     }
 }

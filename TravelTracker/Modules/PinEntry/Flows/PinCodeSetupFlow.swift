@@ -6,29 +6,26 @@ import Foundation
 
 // MARK: - PinSetupFlow
 
-final class PinSetupFlow: PinFlowProtocol {
-    
+final class PinCodeSetupFlow: Flow {
+
     private enum FlowStep {
-        case enterPin
+        case checkPin
         case setupPin
     }
     
-    private var currentStep: FlowStep = .enterPin
+    var completion: Handler<PinCodeFlowResult>?
     
-    var handler: Handler<PinEntryModel.Result>?
+    private var currentStep: FlowStep = .checkPin
     private var enteredPin: String?
     
     func start() -> Handler<String> {
-        self.handler?(Result("Enter PIN"))
+        self.completion?(.init(prompt: "Enter PIN"))
         
         return { [weak self] pinCode in
             switch self?.currentStep {
-            case .enterPin:
-                self?.handlePinEntry(pinCode)
-            case .setupPin:
-                self?.handlePinSetup(pinCode)
-            default:
-                return
+            case .checkPin: self?.handlePinCheck(pinCode)
+            case .setupPin: self?.handlePinSetup(pinCode)
+            default: return
             }
         }
     }
@@ -36,32 +33,30 @@ final class PinSetupFlow: PinFlowProtocol {
 
 // MARK: - PinSetupFlow Private Methods
 
-private extension PinSetupFlow {
+private extension PinCodeSetupFlow {
     
-    func handlePinEntry(_ pinCode: String) {
+    func handlePinCheck(_ pinCode: String) {
         PinCodeService.shared.authenticate(with: pinCode) { isAuthenticated in
             guard isAuthenticated else {
-                self.handler?(Result("Wrong PIN", event: .wrongPin))
+                self.completion?(.init(resultType: .wrongPin, prompt: "Wrong PIN"))
                 return
             }
             self.currentStep = .setupPin
-            self.handler?(Result("Setup PIN"))
+            self.completion?(.init(prompt: "Setup PIN"))
         }
     }
     
     func handlePinSetup(_ pinCode: String) {
         guard let enteredPin = self.enteredPin else {
             self.enteredPin = pinCode
-            self.handler?(Result("Repeat PIN"))
+            self.completion?(.init(prompt: "Repeat PIN"))
             return
         }
         if pinCode == enteredPin {
             PinCodeService.shared.storePin(pin: pinCode)
-            self.currentStep = .enterPin
-            self.enteredPin = .none
-            self.handler?(Result("PIN Stored", event: .completion))
+            self.completion?(.init(resultType: .flowCompleted))
         } else {
-            self.handler?(Result("PIN missmatch"))
+            self.completion?(.init(prompt: "PIN missmatch"))
         }
     }
 }

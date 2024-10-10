@@ -6,7 +6,7 @@ struct HomeContextTransformer: ContextTransformer {
     // MARK: Associated types
 
     /// Type of source context
-    typealias SourceContext = PinEntryModel
+    typealias SourceContext = PinCodeModel
 
     /// Type of target context
     typealias TargetContext = ScreenDefinition
@@ -51,7 +51,7 @@ enum ApplicationConfiguration {
             navController.tabBarItem.image = .init(systemName: "bitcoinsign.circle")
         }
     )
-    .with(PinEntryFactory())
+    .with(PinCodeFactory())
     .assemble()
     
     private static let profile = CompleteFactoryAssembly(
@@ -60,7 +60,7 @@ enum ApplicationConfiguration {
             navController.tabBarItem.image = .init(systemName: "person")
         }
     )
-    .with(PinEntryFactory())
+    .with(PinCodeFactory())
     .assemble()
     
     private static let settings = CompleteFactoryAssembly(
@@ -69,11 +69,11 @@ enum ApplicationConfiguration {
             navController.tabBarItem.image = .init(systemName: "gear")
         }
     )
-    .with(PinEntryFactory())
+    .with(PinCodeFactory())
     .assemble()
     
     static var stepToHome = StepAssembly(
-        finder: ClassFinder<PinEntryViewController, PinEntryModel>(),
+        finder: ClassFinder<PinCodeViewController, PinCodeModel>(),
         factory: NilFactory())
         .from(tabBarScreen)
         .assemble()

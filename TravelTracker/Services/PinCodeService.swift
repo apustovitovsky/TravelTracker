@@ -10,11 +10,7 @@ final class PinCodeService {
     static let shared = PinCodeService()
     
     private let keychainService = KeychainService()
-    private var isLoggedIn: Bool = false {
-        didSet {
-            print(isLoggedIn)
-        }
-    }
+    private var isLoggedIn: Bool = false
     private var inactiveEnterDate: Date?
     private let inactiveTimeout: TimeInterval = 5
 
@@ -28,14 +24,17 @@ final class PinCodeService {
         return !isLoggedIn && isPinStored()
     }
     
-    func authenticate(with pin: String, completion: (Bool) -> Void) {
+    func authenticate(with pin: String, completion: @escaping (Bool) -> Void) {
 
         if let storedPin = keychainService.load(key: "PIN") {
             isLoggedIn = pin == storedPin
         } else {
             isLoggedIn = true
         }
-        completion(isLoggedIn)
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0.5...2.5)) { [weak self] in
+            completion(self?.isLoggedIn ?? false)
+        }
+
     }
     
     func storePin(pin: String) {

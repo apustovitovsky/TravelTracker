@@ -5,43 +5,10 @@
 import UIKit
 import SnapKit
 
-//MARK: - PinEntryKeypadViewProtocol
 
-protocol PinEntryKeypadViewProtocol: AnyObject {
-    func configure(with model: PinEntryModel)
-}
+// MARK: - PinCodeView.KeypadView
 
-//MARK: - PinEntryKeypadView
-
-final class PinEntryKeypadView: UIStackView {
-    
-    private enum Configuration {
-        static let buttonSpacing: CGFloat = 42
-        static let buttonSize: CGFloat = 56
-        static let buttonTitleFontSize: CGFloat = 40
-    }
-    
-    private var keypadButtons: [UIButton] = []
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureView()
-    }
-    
-    required init(coder: NSCoder) {
-        super.init(coder: coder)
-        configureView()
-    }
-}
-
-extension PinEntryKeypadView: PinEntryKeypadViewProtocol {
-    
-    func configure(with model: PinEntryModel) {
-        configureKeypad(with: model)
-    }
-}
-
-private extension PinEntryKeypadView {
+extension PinCodeView.KeypadView {
     
     func configureView() {
         axis = .vertical
@@ -49,15 +16,20 @@ private extension PinEntryKeypadView {
         spacing = Configuration.buttonSpacing
     }
     
-    func configureKeypad(with model: PinEntryModel) {
+    func configureKeypad(with model: PinCodeModel.KeypadView) {
         if keypadButtons.isEmpty {
-            createKeypad(with: model)
+            setupKeypad(with: model)
         }
         updateKeypad(with: model)
     }
+}
+
+// MARK: - PinCodeView.KeypadView Private Methods
+
+private extension PinCodeView.KeypadView {
     
-    func createKeypad(with model: PinEntryModel) {
-        let buttons = model.keypadView.buttons
+    private func setupKeypad(with model: PinCodeModel.KeypadView) {
+        let buttons = model.buttons
         stride(from: 0, to: buttons.count, by: 3).forEach { index in
             let chunk = Array(buttons[index..<min(index + 3, buttons.count)])
             let stackView = UIStackView()
@@ -76,10 +48,10 @@ private extension PinEntryKeypadView {
     
     //MARK: - Update keypad buttons based on the model
     
-    func updateKeypad(with model: PinEntryModel) {
-        let isKeypadEnabled = model.keypadView.isEnabled
+    private func updateKeypad(with model: PinCodeModel.KeypadView) {
+        let isKeypadEnabled = model.isEnabled
         
-        zip(keypadButtons, model.keypadView.buttons).forEach { button, buttonModel in
+        zip(keypadButtons, model.buttons).forEach { button, buttonModel in
             button.setTitle(buttonModel.title, for: .normal)
             
             // Enable or disable the button based on its state and the keypad state
@@ -88,14 +60,14 @@ private extension PinEntryKeypadView {
             // Add a new action if the button model has one
             button.removeTarget(nil, action: nil, for: .allEvents)
             if let action = buttonModel.action {
-                button.addAction(UIAction { _ in model.keypadView.handler?(action) }, for: .touchUpInside)
+                button.addAction(UIAction { _ in model.handler?(action) }, for: .touchUpInside)
             }
         }
     }
 
     //MARK: - Create button and setup the attributes
     
-    func createButton() -> UIButton {
+    private func createButton() -> UIButton {
         let button = UIButton(type: .system)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.init(named: "bgLight"), for: .disabled)

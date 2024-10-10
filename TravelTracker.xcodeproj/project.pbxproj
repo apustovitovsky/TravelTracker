@@ -15,23 +15,23 @@
 		8A0C631C2CA084E800AE8C65 /* Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C631B2CA084E500AE8C65 /* Closures.swift */; };
 		8A0C631E2CA0A0C500AE8C65 /* ContextHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C631D2CA0A0BC00AE8C65 /* ContextHolder.swift */; };
 		8A0C63202CA0ADB500AE8C65 /* ScreenDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C631F2CA0ADAF00AE8C65 /* ScreenDefinition.swift */; };
-		8A0C63232CA17E0400AE8C65 /* PinEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63222CA17DFE00AE8C65 /* PinEntryView.swift */; };
-		8A0C63252CA18E2400AE8C65 /* PinEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63242CA18E1F00AE8C65 /* PinEntryViewModel.swift */; };
-		8A0C63272CA18EAD00AE8C65 /* PinEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63262CA18EA800AE8C65 /* PinEntryViewController.swift */; };
-		8A0C63292CA18EDD00AE8C65 /* PinEntryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63282CA18ED800AE8C65 /* PinEntryFactory.swift */; };
-		8A0C632B2CA18F1900AE8C65 /* PinEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C632A2CA18F1500AE8C65 /* PinEntryModel.swift */; };
-		8A0C63342CA95E5600AE8C65 /* PinEntryIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63332CA95E4B00AE8C65 /* PinEntryIndicatorView.swift */; };
-		8A0C63372CA9F97300AE8C65 /* PinEntryKeypadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63362CA9F96B00AE8C65 /* PinEntryKeypadView.swift */; };
+		8A0C63232CA17E0400AE8C65 /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63222CA17DFE00AE8C65 /* PinCodeView.swift */; };
+		8A0C63252CA18E2400AE8C65 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63242CA18E1F00AE8C65 /* PinCodeViewModel.swift */; };
+		8A0C63272CA18EAD00AE8C65 /* PinCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63262CA18EA800AE8C65 /* PinCodeViewController.swift */; };
+		8A0C63292CA18EDD00AE8C65 /* PinCodeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63282CA18ED800AE8C65 /* PinCodeFactory.swift */; };
+		8A0C632B2CA18F1900AE8C65 /* PinCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C632A2CA18F1500AE8C65 /* PinCodeModel.swift */; };
+		8A0C63342CA95E5600AE8C65 /* PinCodeView.IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63332CA95E4B00AE8C65 /* PinCodeView.IndicatorView.swift */; };
+		8A0C63372CA9F97300AE8C65 /* PinCodeView.KeypadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63362CA9F96B00AE8C65 /* PinCodeView.KeypadView.swift */; };
 		8A7277C82C9728BD00C03C73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277C72C9728BD00C03C73 /* AppDelegate.swift */; };
 		8A7277CA2C9728BD00C03C73 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277C92C9728BD00C03C73 /* SceneDelegate.swift */; };
 		8A7277D22C9728BD00C03C73 /* TravelTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277D02C9728BD00C03C73 /* TravelTracker.xcdatamodeld */; };
 		8A7277D42C9728BF00C03C73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A7277D32C9728BF00C03C73 /* Assets.xcassets */; };
 		8A7277D72C9728BF00C03C73 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8A7277D62C9728BF00C03C73 /* Base */; };
 		8A7277F82C99B13300C03C73 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277F72C99B13300C03C73 /* KeychainService.swift */; };
+		8A9A2E082CB6F874002E8C63 /* FlowHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9A2E072CB6F86E002E8C63 /* FlowHolder.swift */; };
 		8A9BB0232CB0512800E47076 /* PinCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9BB0222CB0512300E47076 /* PinCodeService.swift */; };
-		8A9BB0262CB59B8F00E47076 /* PinFlowProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9BB0252CB59B8700E47076 /* PinFlowProtocol.swift */; };
-		8A9BB0282CB59BCA00E47076 /* PinEntryFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9BB0272CB59BC500E47076 /* PinEntryFlow.swift */; };
-		8A9BB02A2CB5B33100E47076 /* PinSetupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9BB0292CB5B32B00E47076 /* PinSetupFlow.swift */; };
+		8A9BB0282CB59BCA00E47076 /* PinCodeEntryFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9BB0272CB59BC500E47076 /* PinCodeEntryFlow.swift */; };
+		8A9BB02A2CB5B33100E47076 /* PinCodeSetupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9BB0292CB5B32B00E47076 /* PinCodeSetupFlow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,13 +41,13 @@
 		8A0C631B2CA084E500AE8C65 /* Closures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Closures.swift; sourceTree = "<group>"; };
 		8A0C631D2CA0A0BC00AE8C65 /* ContextHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextHolder.swift; sourceTree = "<group>"; };
 		8A0C631F2CA0ADAF00AE8C65 /* ScreenDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenDefinition.swift; sourceTree = "<group>"; };
-		8A0C63222CA17DFE00AE8C65 /* PinEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinEntryView.swift; sourceTree = "<group>"; };
-		8A0C63242CA18E1F00AE8C65 /* PinEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinEntryViewModel.swift; sourceTree = "<group>"; };
-		8A0C63262CA18EA800AE8C65 /* PinEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinEntryViewController.swift; sourceTree = "<group>"; };
-		8A0C63282CA18ED800AE8C65 /* PinEntryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinEntryFactory.swift; sourceTree = "<group>"; };
-		8A0C632A2CA18F1500AE8C65 /* PinEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinEntryModel.swift; sourceTree = "<group>"; };
-		8A0C63332CA95E4B00AE8C65 /* PinEntryIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinEntryIndicatorView.swift; sourceTree = "<group>"; };
-		8A0C63362CA9F96B00AE8C65 /* PinEntryKeypadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinEntryKeypadView.swift; sourceTree = "<group>"; };
+		8A0C63222CA17DFE00AE8C65 /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
+		8A0C63242CA18E1F00AE8C65 /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
+		8A0C63262CA18EA800AE8C65 /* PinCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewController.swift; sourceTree = "<group>"; };
+		8A0C63282CA18ED800AE8C65 /* PinCodeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeFactory.swift; sourceTree = "<group>"; };
+		8A0C632A2CA18F1500AE8C65 /* PinCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeModel.swift; sourceTree = "<group>"; };
+		8A0C63332CA95E4B00AE8C65 /* PinCodeView.IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.IndicatorView.swift; sourceTree = "<group>"; };
+		8A0C63362CA9F96B00AE8C65 /* PinCodeView.KeypadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.KeypadView.swift; sourceTree = "<group>"; };
 		8A7277C42C9728BD00C03C73 /* TravelTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7277C72C9728BD00C03C73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A7277C92C9728BD00C03C73 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,10 +56,10 @@
 		8A7277D62C9728BF00C03C73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A7277D82C9728BF00C03C73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A7277F72C99B13300C03C73 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		8A9A2E072CB6F86E002E8C63 /* FlowHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowHolder.swift; sourceTree = "<group>"; };
 		8A9BB0222CB0512300E47076 /* PinCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeService.swift; sourceTree = "<group>"; };
-		8A9BB0252CB59B8700E47076 /* PinFlowProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinFlowProtocol.swift; sourceTree = "<group>"; };
-		8A9BB0272CB59BC500E47076 /* PinEntryFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinEntryFlow.swift; sourceTree = "<group>"; };
-		8A9BB0292CB5B32B00E47076 /* PinSetupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinSetupFlow.swift; sourceTree = "<group>"; };
+		8A9BB0272CB59BC500E47076 /* PinCodeEntryFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeEntryFlow.swift; sourceTree = "<group>"; };
+		8A9BB0292CB5B32B00E47076 /* PinCodeSetupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeSetupFlow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +97,13 @@
 		8A0C63212CA15D0400AE8C65 /* PinEntry */ = {
 			isa = PBXGroup;
 			children = (
+				8A9A2E042CB6E3C1002E8C63 /* Protocols */,
 				8A9BB0242CB59B8200E47076 /* Flows */,
 				8A0C63352CA9F93C00AE8C65 /* Views */,
-				8A0C63282CA18ED800AE8C65 /* PinEntryFactory.swift */,
-				8A0C632A2CA18F1500AE8C65 /* PinEntryModel.swift */,
-				8A0C63262CA18EA800AE8C65 /* PinEntryViewController.swift */,
-				8A0C63242CA18E1F00AE8C65 /* PinEntryViewModel.swift */,
+				8A0C63282CA18ED800AE8C65 /* PinCodeFactory.swift */,
+				8A0C632A2CA18F1500AE8C65 /* PinCodeModel.swift */,
+				8A0C63262CA18EA800AE8C65 /* PinCodeViewController.swift */,
+				8A0C63242CA18E1F00AE8C65 /* PinCodeViewModel.swift */,
 			);
 			path = PinEntry;
 			sourceTree = "<group>";
@@ -110,9 +111,9 @@
 		8A0C63352CA9F93C00AE8C65 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8A0C63222CA17DFE00AE8C65 /* PinEntryView.swift */,
-				8A0C63332CA95E4B00AE8C65 /* PinEntryIndicatorView.swift */,
-				8A0C63362CA9F96B00AE8C65 /* PinEntryKeypadView.swift */,
+				8A0C63222CA17DFE00AE8C65 /* PinCodeView.swift */,
+				8A0C63332CA95E4B00AE8C65 /* PinCodeView.IndicatorView.swift */,
+				8A0C63362CA9F96B00AE8C65 /* PinCodeView.KeypadView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -184,12 +185,19 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		8A9A2E042CB6E3C1002E8C63 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8A9A2E072CB6F86E002E8C63 /* FlowHolder.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		8A9BB0242CB59B8200E47076 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
-				8A9BB0252CB59B8700E47076 /* PinFlowProtocol.swift */,
-				8A9BB0272CB59BC500E47076 /* PinEntryFlow.swift */,
-				8A9BB0292CB5B32B00E47076 /* PinSetupFlow.swift */,
+				8A9BB0272CB59BC500E47076 /* PinCodeEntryFlow.swift */,
+				8A9BB0292CB5B32B00E47076 /* PinCodeSetupFlow.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -273,26 +281,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A9BB0232CB0512800E47076 /* PinCodeService.swift in Sources */,
-				8A9BB0262CB59B8F00E47076 /* PinFlowProtocol.swift in Sources */,
 				8A0C63192CA0199200AE8C65 /* DefaultFactory.swift in Sources */,
-				8A0C63292CA18EDD00AE8C65 /* PinEntryFactory.swift in Sources */,
-				8A9BB0282CB59BCA00E47076 /* PinEntryFlow.swift in Sources */,
+				8A0C63292CA18EDD00AE8C65 /* PinCodeFactory.swift in Sources */,
+				8A9BB0282CB59BCA00E47076 /* PinCodeEntryFlow.swift in Sources */,
 				8A0C63152C9FF19100AE8C65 /* ApplicationConfiguration.swift in Sources */,
-				8A0C63232CA17E0400AE8C65 /* PinEntryView.swift in Sources */,
-				8A0C63252CA18E2400AE8C65 /* PinEntryViewModel.swift in Sources */,
-				8A0C63342CA95E5600AE8C65 /* PinEntryIndicatorView.swift in Sources */,
-				8A0C63272CA18EAD00AE8C65 /* PinEntryViewController.swift in Sources */,
+				8A0C63232CA17E0400AE8C65 /* PinCodeView.swift in Sources */,
+				8A0C63252CA18E2400AE8C65 /* PinCodeViewModel.swift in Sources */,
+				8A0C63342CA95E5600AE8C65 /* PinCodeView.IndicatorView.swift in Sources */,
+				8A0C63272CA18EAD00AE8C65 /* PinCodeViewController.swift in Sources */,
 				8A7277D22C9728BD00C03C73 /* TravelTracker.xcdatamodeld in Sources */,
 				8A7277C82C9728BD00C03C73 /* AppDelegate.swift in Sources */,
+				8A9A2E082CB6F874002E8C63 /* FlowHolder.swift in Sources */,
 				8A0C631C2CA084E800AE8C65 /* Closures.swift in Sources */,
 				8A7277CA2C9728BD00C03C73 /* SceneDelegate.swift in Sources */,
 				8A0C63172CA0187800AE8C65 /* DefaultVC.swift in Sources */,
-				8A9BB02A2CB5B33100E47076 /* PinSetupFlow.swift in Sources */,
+				8A9BB02A2CB5B33100E47076 /* PinCodeSetupFlow.swift in Sources */,
 				8A0C631E2CA0A0C500AE8C65 /* ContextHolder.swift in Sources */,
-				8A0C63372CA9F97300AE8C65 /* PinEntryKeypadView.swift in Sources */,
+				8A0C63372CA9F97300AE8C65 /* PinCodeView.KeypadView.swift in Sources */,
 				8A0C63202CA0ADB500AE8C65 /* ScreenDefinition.swift in Sources */,
 				8A7277F82C99B13300C03C73 /* KeychainService.swift in Sources */,
-				8A0C632B2CA18F1900AE8C65 /* PinEntryModel.swift in Sources */,
+				8A0C632B2CA18F1900AE8C65 /* PinCodeModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,8 +448,8 @@
 				INFOPLIST_FILE = TravelTracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -449,9 +457,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = unknown.TravelTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -466,8 +478,8 @@
 				INFOPLIST_FILE = TravelTracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,9 +487,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = unknown.TravelTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
