@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-//MARK: - PinCodeModel
+//MARK: - PinCodeModel/
 
 struct PinCodeModel {
     
