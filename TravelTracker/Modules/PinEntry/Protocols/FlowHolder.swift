@@ -8,13 +8,15 @@ protocol Flow: AnyObject {
     associatedtype Context
     
     var completion: Handler<Context>? { get set }
-    func start() -> Handler<String>
+    func start()
 }
 
-// MARK: - FlowHolder
+// MARK: - PinCodeFlow
 
-protocol FlowHolder {
-    associatedtype F: Flow
-    
-    var flow: F { get set }
+protocol PinCodeFlow: Flow {
+    var handler: Handler<String>? { get set }
 }
+
+
+
+

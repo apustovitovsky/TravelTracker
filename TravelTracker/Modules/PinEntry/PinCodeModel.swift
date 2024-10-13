@@ -9,23 +9,25 @@ import UIKit
 
 struct PinCodeModel {
     
-    var promptLabel: String?
-    var keypadView: KeypadView
+    var promptLabel: PromptLabel
     var indicatorView: IndicatorView
+    var keypadView: KeypadView
     
+    
+    struct PromptLabel {
+        var text: String?
+    }
+
     struct IndicatorView {
         
         enum State {
-            case normal
-            case processingPin
+            case setupPin
+            case clearPin
             case wrongPin
         }
         
-        var state: IndicatorView.State = .normal {
-            didSet {
-                print(state)
-            }
-        }
+        var state: State?
+        var onAnimationComplete: ((State) -> Void)?
         var pinCode: [Int] = []
         var previousPinCode: [Int] = []
         let pinCodeLength: Int = 4
@@ -33,22 +35,26 @@ struct PinCodeModel {
     
     struct KeypadView {
         
-        enum Action {
+        enum State {
+            case normal
+            case disabled
+        }
+        
+        enum ActionType {
             case append(Int)
             case removeLast
             case cancelFlow
         }
         
         struct Button {
-            var action: KeypadView.Action?
+            var state: State = .normal
+            var action: ActionType?
             let title: String
-            var image: UIImage?
-            var isEnabled: Bool = true
         }
         
-        var buttons: [KeypadView.Button]
-        var handler: Handler<KeypadView.Action>?
-        var isEnabled: Bool = true
+        var state: State = .normal
+        var buttons: [Button]
+        var handler: Handler<ActionType>?
     }
 }
 
@@ -56,16 +62,17 @@ struct PinCodeModel {
 
 struct PinCodeFlowResult {
     
-    enum ResultType {
+    enum ActionType {
+        case clearPin
         case wrongPin
-        case flowCompleted
+        case completeFlow
     }
     
+    let actionType: ActionType
     let prompt: String?
-    let resultType: ResultType?
     
-    init(resultType: ResultType? = nil, prompt: String? = nil) {
-        self.resultType = resultType
+    init(actionType: ActionType = .clearPin, prompt: String? = nil) {
+        self.actionType = actionType
         self.prompt = prompt
     }
 }

@@ -31,9 +31,9 @@ final class PinCodeService {
         } else {
             isLoggedIn = true
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0.5...2.5)) { [weak self] in
-            completion(self?.isLoggedIn ?? false)
-        }
+        //DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0.5...2.5)) { [weak self] in
+            completion(self.isLoggedIn)
+        //}
 
     }
     

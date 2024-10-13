@@ -48,7 +48,7 @@ final class PinCodeView: UIView {
 extension PinCodeView: PinCodeViewProtocol {
     
     func configure(with model: PinCodeModel) {
-        updatePromptLabel(model.promptLabel)
+        updatePromptLabel(model.promptLabel.text)
         indicatorView.configureSubviews(with: model.indicatorView)
         keypadView.configureKeypad(with: model.keypadView)
     }
@@ -67,7 +67,8 @@ extension PinCodeView {
             static let subviewAnimationTime: CGFloat = 0.2
         }
         
-        var indicatorSubviews: [UIView] = []
+        var dotSubviews: [UIView] = []
+        var animationQueue: [(animations: Action, completion: Action?)] = []
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -77,7 +78,6 @@ extension PinCodeView {
         required init(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-        
     }
     
     // MARK: - PinCodeView.KeypadView

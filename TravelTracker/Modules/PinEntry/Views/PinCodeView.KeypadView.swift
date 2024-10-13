@@ -49,13 +49,12 @@ private extension PinCodeView.KeypadView {
     //MARK: - Update keypad buttons based on the model
     
     private func updateKeypad(with model: PinCodeModel.KeypadView) {
-        let isKeypadEnabled = model.isEnabled
         
         zip(keypadButtons, model.buttons).forEach { button, buttonModel in
             button.setTitle(buttonModel.title, for: .normal)
             
             // Enable or disable the button based on its state and the keypad state
-            button.isEnabled = buttonModel.isEnabled && isKeypadEnabled
+            button.isEnabled = buttonModel.state != .disabled && model.state != .disabled
             
             // Add a new action if the button model has one
             button.removeTarget(nil, action: nil, for: .allEvents)

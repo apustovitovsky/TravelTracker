@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let indicatorView = PinCodeModel.IndicatorView()
         let keypad = PinCodeModel.KeypadView(buttons: buttons)
-        let model = PinCodeModel(keypadView: keypad, indicatorView: indicatorView)
+        let model = PinCodeModel(promptLabel: .init(), indicatorView: indicatorView, keypadView: keypad)
 
         try? DefaultRouter().navigate(to: Destination(to: step, with: model))
     }

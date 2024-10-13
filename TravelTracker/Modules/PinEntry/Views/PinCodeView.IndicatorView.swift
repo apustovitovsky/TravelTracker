@@ -17,10 +17,18 @@ extension PinCodeView.IndicatorView {
     }
     
     func configureSubviews(with model: PinCodeModel.IndicatorView) {
-        if indicatorSubviews.isEmpty {
-            setupSubviews(count: model.pinCodeLength)
+        if dotSubviews.isEmpty {
+            setupSubviews(for: model)
         }
-        playAnimation(for: model)
+        handleState(for: model)
+    }
+    
+  
+    func enqueueAnimation(_ animations: @escaping Action, completion: Action? = nil) {
+        animationQueue.append((animations: animations, completion: completion))
+        if !animationQueue.isEmpty {
+            runNextAnimation()
+        }
     }
 }
 
@@ -28,14 +36,64 @@ extension PinCodeView.IndicatorView {
 
 private extension PinCodeView.IndicatorView {
     
-    func setupSubviews(count: Int) {
-        (0..<count).forEach { _ in
+    func runNextAnimation() {
+        guard let currentAnimation = animationQueue.first else { return }
+        
+        UIView.animate(
+            withDuration: Configuration.subviewAnimationTime,
+            delay: 0,
+            usingSpringWithDamping: 0.5,
+            initialSpringVelocity: 0.5,
+            options: .curveEaseOut,
+            animations: currentAnimation.animations,
+            completion: { [weak self] _ in
+                currentAnimation.completion?()
+                self?.animationQueue.removeFirst()
+                self?.runNextAnimation()
+            }
+        )
+    }
+    
+    func AnimateClearPinEffect(for model: PinCodeModel.IndicatorView) {
+        enqueueAnimation {
+            self.dotSubviews.forEach { subview in
+                subview.transform = .identity
+                subview.backgroundColor = UIColor(named: "bgLight")
+            }
+        }
+    }
+    
+    func AnimateWrongPinEffect(for model: PinCodeModel.IndicatorView) {
+        let shakeDuration = 0.1
+        let shakeOffset: CGFloat = 10
+
+        enqueueAnimation({
+            self.transform = CGAffineTransform(translationX: -shakeOffset, y: 0)
+        })
+        
+        enqueueAnimation({
+            self.transform = CGAffineTransform(translationX: shakeOffset, y: 0)
+        })
+        
+        enqueueAnimation({
+            self.transform = CGAffineTransform(translationX: -shakeOffset, y: 0)
+        }, completion: {
+
+            self.enqueueAnimation({
+                self.transform = .identity
+                self.AnimateClearPinEffect(for: model)
+            })
+        })
+    }
+    
+    func setupSubviews(for model: PinCodeModel.IndicatorView) {
+        (0..<model.pinCodeLength).forEach { _ in
             let view = UIView()
             view.layer.cornerRadius = Configuration.subviewSize / 2
             view.backgroundColor = .init(named: "bgLight")
             
             addArrangedSubview(view)
-            indicatorSubviews.append(view)
+            dotSubviews.append(view)
             
             view.snp.makeConstraints {
                 $0.width.height.equalTo(Configuration.subviewSize)
@@ -43,82 +101,65 @@ private extension PinCodeView.IndicatorView {
         }
     }
     
-    func AnimateFailureEffect(for model: PinCodeModel.IndicatorView) {
-
-        indicatorSubviews.forEach { view in
-            view.backgroundColor = .red
-            UIView.animate(
-                withDuration: 2,
-                delay: 0,
-                usingSpringWithDamping: 0.5,
-                initialSpringVelocity: 0.5,
-                options: .curveEaseOut) {
-
-                view.transform = .identity
-                }
-        }
-
-    }
-    
-    func AnimateLoadingEffect(for model: PinCodeModel.IndicatorView) {
-        indicatorSubviews.forEach { view in
-            UIView.animate(
-                withDuration: 1,
-                delay: 0,
-                usingSpringWithDamping: 0.5,
-                initialSpringVelocity: 0.5,
-                options: .curveEaseOut) {
-                    let scale = Configuration.subvviewSizeMultiplier
-                    view.transform = CGAffineTransform(scaleX: scale, y: scale)
-                    view.backgroundColor = UIColor(named: "accent")
-            }
-        }
-
-    }
-    
-    func playAnimation(for model: PinCodeModel.IndicatorView) {
+    func handleState(for model: PinCodeModel.IndicatorView) {
         switch model.state {
-        case .normal:
-            AnimateNormalEffects(for: model)
-        case .processingPin:
-            AnimateLoadingEffect(for: model)
+        case .none:
+            print(".normal started")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                print(".normal completed")
+                //model.onAnimationComplete?()
+            }
+        case .clearPin:
+            print(".clearPin started")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                print(".clearPin completed")
+                //model.onAnimationComplete?()
+            }
         case .wrongPin:
-            AnimateFailureEffect(for: model)
+            print(".wrongPin started")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                print(".wrongPin completed")
+                //model.onAnimationComplete?()
+            }
+        case .some(.setupPin):
+            return
         }
     }
+    
         
-    func AnimateNormalEffects(for model: PinCodeModel.IndicatorView) {
-        indicatorSubviews.enumerated().forEach { index, view in
+    func AnimateNormalEffect(for model: PinCodeModel.IndicatorView) {
+        dotSubviews.enumerated().forEach { index, subview in
             let isCurrentActive = index < model.pinCode.count
             let isPreviousActive = index < model.previousPinCode.count
             
             if index >= model.pinCode.count {
-                view.backgroundColor = UIColor(named: "bgLight")
+                subview.backgroundColor = UIColor(named: "bgLight")
             }
             
             guard isCurrentActive != isPreviousActive else { return }
             
             if isCurrentActive {
-                view.backgroundColor = UIColor(named: "accent")
-                animateSubview {
+                subview.backgroundColor = UIColor(named: "accent")
+                performAnimation {
                     let scale = Configuration.subvviewSizeMultiplier
-                    view.transform = CGAffineTransform(scaleX: scale, y: scale)
+                    subview.transform = CGAffineTransform(scaleX: scale, y: scale)
                 }
             } else {
-                view.transform = .identity
-                view.backgroundColor = UIColor(named: "bgLight")
+                subview.transform = .identity
+                subview.backgroundColor = UIColor(named: "bgLight")
             }
         }
     }
         
-    func animateSubview(_ animation: @escaping Action) {
+    func performAnimation(_ animations: @escaping Action, completion: ((Bool) -> Void)? = nil) {
         UIView.animate(
             withDuration: Configuration.subviewAnimationTime,
             delay: 0,
             usingSpringWithDamping: 0.5,
             initialSpringVelocity: 0.5,
             options: .curveEaseOut,
-            animations: animation)
+            animations: animations,
+            completion: completion)
     }
 }
 

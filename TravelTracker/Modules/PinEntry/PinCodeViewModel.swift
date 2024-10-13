@@ -18,14 +18,13 @@ protocol PinCodeViewModelProtocol: AnyObject {
 
 // MARK: - PinViewModel
 
-final class PinCodeViewModel<F: Flow>: PinCodeModuleOutput, FlowHolder where F.Context == PinCodeFlowResult {
+final class PinCodeViewModel<F: PinCodeFlow>: PinCodeModuleOutput where F.Context == PinCodeFlowResult {
     
     var completion: Handler<Bool>?
-    var flow: F
     weak var view: PinCodeViewControllerProtocol?
     
     private var model: PinCodeModel
-    private var enterPin: Handler<String>?
+    private var flow: F
     
     init(model: PinCodeModel, flow: F) {
         self.model = model
@@ -39,7 +38,7 @@ extension PinCodeViewModel: PinCodeViewModelProtocol {
     
     func viewDidLoad() {
         setupHandlers()
-        enterPin = flow.start()
+        flow.start()
         updateKeypad()
         view?.configure(with: model)
     }
@@ -71,67 +70,84 @@ private extension PinCodeViewModel {
         flow.completion = { [weak self] result in
             self?.handleFlowResult(result)
         }
+        model.indicatorView.onAnimationComplete = { [weak self] _ in
+            self?.handleAnimationResult()
+        }
     }
     
     // MARK: - handleCoordinatorResult
     
-    func handleFlowResult(_ result: F.Context?) {
-        if let prompt = result?.prompt {
-            model.promptLabel = prompt
-        }
-        switch result?.resultType {
-        case .flowCompleted:
-            completion?(true)
-            return
+    func handleAnimationResult() {
+        model.indicatorView.state = .none
+        model.keypadView.state = .normal
+    }
+
+    // MARK: - handleCoordinatorResult
+    
+    func handleFlowResult(_ result: F.Context) {
+
+        switch result.actionType {
+        case .clearPin:
+            model.indicatorView.state = .clearPin
+//            model.indicatorView.onAnimationComplete = { [weak self] _ in
+//                guard let self, self.model.indicatorView.state != .normal else { return }
+//                self.pinCode.removeAll()
+//                self.model.indicatorView.state = .normal
+//                self.view?.configure(with: self.model)
+//            }
         case .wrongPin:
             model.indicatorView.state = .wrongPin
-        default:
-            break
+            model.keypadView.state = .disabled
+//            model.indicatorView.onAnimationComplete = { [weak self] _ in
+//                guard let self, self.model.indicatorView.state != .normal else { return }
+//                self.pinCode.removeAll()
+//                self.model.promptLabel.text = result.prompt
+//                self.model.indicatorView.state = .normal
+//                self.model.keypadView.state = .normal
+//                self.view?.configure(with: self.model)
+//            }
+        case .completeFlow:
+            completion?(true)
+            return
         }
-        pinCode.removeAll()
         view?.configure(with: model)
     }
 
     // MARK: - updateKeypad
     
     func updateKeypad() {
-        model.keypadView.isEnabled = model.indicatorView.pinCode.count != model.indicatorView.pinCodeLength
+        let maxPinLengthReached = pinCode.count == model.indicatorView.pinCodeLength
+        model.keypadView.state = maxPinLengthReached ? .disabled : .normal
         model.keypadView.buttons = model.keypadView.buttons.map { button in
             guard case .removeLast = button.action else { return button }
             var updatedButton = button
-            updatedButton.isEnabled = !pinCode.isEmpty
+            updatedButton.state = pinCode.isEmpty ? .disabled : .normal
             return updatedButton
         }
     }
     
     // MARK: - handleKeypadAction
     
-    func handleKeypadAction(_ action: PinCodeModel.KeypadView.Action) {
-        model.indicatorView.state = .normal
-
+    func handleKeypadAction(_ action: PinCodeModel.KeypadView.ActionType) {
+        let pinCodeLength = model.indicatorView.pinCodeLength
+        
         switch action {
         case .append(let digit):
-            guard pinCode.count < model.indicatorView.pinCodeLength else { return }
+            guard pinCode.count < pinCodeLength else { return }
             pinCode.append(digit)
-            if pinCode.count == model.indicatorView.pinCodeLength {
-                handlePinCode()
-            }
         case .removeLast:
-            if !pinCode.isEmpty {
-                pinCode.removeLast()
-            }
+            guard !pinCode.isEmpty else { return }
+            pinCode.removeLast()
         case .cancelFlow:
             completion?(false)
+            return
         }
+        model.indicatorView.state = .setupPin
         view?.configure(with: model)
-    }
-    
-    // MARK: - handlePinCode
-    
-    func handlePinCode() {
-        let pinCodeString = model.indicatorView.pinCode.map(String.init).joined()
-        model.indicatorView.state = .processingPin
-        enterPin?(pinCodeString)
+        
+        guard pinCode.count == pinCodeLength else { return }
+        let pinCodeString = pinCode.map(String.init).joined()
+        flow.handler?(pinCodeString)
     }
 }
 
