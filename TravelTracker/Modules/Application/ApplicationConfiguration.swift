@@ -51,7 +51,7 @@ enum ApplicationConfiguration {
             navController.tabBarItem.image = .init(systemName: "bitcoinsign.circle")
         }
     )
-    .with(PinCodeFactory())
+    .with(PasscodeEntryFactory())
     .assemble()
     
     private static let profile = CompleteFactoryAssembly(
@@ -60,7 +60,7 @@ enum ApplicationConfiguration {
             navController.tabBarItem.image = .init(systemName: "person")
         }
     )
-    .with(PinCodeFactory())
+    .with(PasscodeEntryFactory())
     .assemble()
     
     private static let settings = CompleteFactoryAssembly(
@@ -69,11 +69,11 @@ enum ApplicationConfiguration {
             navController.tabBarItem.image = .init(systemName: "gear")
         }
     )
-    .with(PinCodeFactory())
+    .with(PasscodeEntryFactory())
     .assemble()
     
     static var stepToHome = StepAssembly(
-        finder: ClassFinder<PinCodeViewController, PinCodeModel>(),
+        finder: ClassFinder<PasscodeViewController, PasscodeModel>(),
         factory: NilFactory())
         .from(tabBarScreen)
         .assemble()

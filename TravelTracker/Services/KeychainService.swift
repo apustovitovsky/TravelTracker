@@ -20,7 +20,7 @@ final class KeychainService: KeychainServiceProtocol {
         if let value = storage[key] {
             return value
         } else {
-            return .none
+            return nil
         }
     }
 }

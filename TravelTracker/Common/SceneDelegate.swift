@@ -14,16 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         
         let step = ApplicationConfiguration.stepToHome
-        var buttons: [PinCodeModel.KeypadView.Button] = (1...9).map { index in
-                .init(action: .append(index), title: "\(index)")
-        }
-        buttons.append(.init(action: .cancelFlow, title: "E"))
-        buttons.append(.init(title: "0"))
-        buttons.append(.init(action: .removeLast, title: "⌫"))
-
-        let indicatorView = PinCodeModel.IndicatorView()
-        let keypad = PinCodeModel.KeypadView(buttons: buttons)
-        let model = PinCodeModel(promptLabel: .init(), indicatorView: indicatorView, keypadView: keypad)
+        let model = PasscodeModel(length: 4)
 
         try? DefaultRouter().navigate(to: Destination(to: step, with: model))
     }
