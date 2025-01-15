@@ -9,10 +9,7 @@ protocol PasscodeModuleOutput: AnyObject {
     var completion: Handler<Bool>? { get set }
 }
 
-class PasscodePresenter: PasscodePresenterProtocol, PasscodeModuleOutput {
-    
-    weak var viewController: PasscodeViewControllerProtocol?
-    var model: PasscodeModel
+final class ValidatePasscodePresenter: PasscodePresenterDefault, PasscodeModuleOutput {
     
     enum State: String {
         case enterPasscode = "Enter Passcode"
@@ -29,37 +26,35 @@ class PasscodePresenter: PasscodePresenterProtocol, PasscodeModuleOutput {
     
     init(model: PasscodeModel, passcodeManager: PasscodeManagerProtocol) {
         self.passcodeManager = passcodeManager
-        self.model = model
+        super.init(model: model)
     }
     
-    func didStartInput() {
+    override func didStartInput() {
         model.progressIndicator.state = .normal
     }
     
-    func didCompleteInput(_ passcodeString: String) {
+    override func didCompleteInput(with passcode: String) {
         showValidationStart()
-        
-        passcodeManager.authenticate(with: passcodeString) { [weak self] isSuccessful in
+        passcodeManager.authenticate(with: passcode) { [weak self] isSuccessful in
             isSuccessful ? self?.completion?(true) : self?.handleValidationError()
         }
     }
     
-    func cancelInput() {
+    override func cancelInput() {
         completion?(false)
     }
     
-    func didResetInput() {
+    override func didResetInput() {
         model.state = .normal
     }
     
-    func viewDidLoad() {
+    override func viewDidLoad() {
         currentStep = .enterPasscode
-        setupHandlers()
-        refreshView()
+        super.viewDidLoad()
     }
 }
 
-extension PasscodePresenter {
+private extension ValidatePasscodePresenter {
     
     func showValidationStart() {
         model.state = .loading
@@ -77,7 +72,7 @@ extension PasscodePresenter {
         model.state = .failure
         model.progressIndicator.state = .failure
         
-        refreshProgressIndicatorAndView()
+        updateProgressIndicatorAndRefreshView()
     }
 }
 

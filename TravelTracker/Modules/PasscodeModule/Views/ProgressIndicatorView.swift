@@ -34,7 +34,7 @@ private extension PasscodeView.ProgressIndicatorView {
         static let snakeOffsets: [CGFloat] = [-12, 12, -8, 8, -2, 2, 0]
         static let animationDuration: TimeInterval = 0.2
         static let failureAnimationDuration: TimeInterval = 0.4
-        static let entryResetDelay: TimeInterval = 0.8
+        static let resetInputDelay: TimeInterval = 0.4
     }
     
     func setupView() {
@@ -88,7 +88,7 @@ private extension PasscodeView.ProgressIndicatorView {
 
         layer.add(animation, forKey: "shake")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.entryResetDelay) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.resetInputDelay) {
             completion()
         }
     }
