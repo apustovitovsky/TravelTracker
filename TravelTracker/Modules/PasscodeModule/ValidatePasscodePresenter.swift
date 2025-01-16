@@ -6,72 +6,82 @@ import Foundation
 
 
 protocol PasscodeModuleOutput: AnyObject {
-    var completion: Handler<Bool>? { get set }
+    var completion: Handler<String>? { get set }
 }
 
 final class ValidatePasscodePresenter: PasscodePresenterDefault, PasscodeModuleOutput {
     
-    enum State: String {
-        case enterPasscode = "Enter Passcode"
-        case wrongPasscode = "Wrong Passcode"
+    enum Prompts {
+        static let enterPasscodePrompt = "Enter Passcode"
+        static let wrongPasscodePrompt = "Wrong Passcode"
     }
     
-    var completion: Handler<Bool>?
+    var completion: Handler<String>?
     private let passcodeManager: PasscodeManagerProtocol
-    private var currentStep: State? {
-        didSet {
-            model.title = currentStep?.rawValue
-        }
-    }
     
     init(model: PasscodeModel, passcodeManager: PasscodeManagerProtocol) {
         self.passcodeManager = passcodeManager
         super.init(model: model)
     }
     
-    override func didStartInput() {
+    override func inputDidStart() {
         model.progressIndicator.state = .normal
     }
     
-    override func didCompleteInput(with passcode: String) {
-        showValidationStart()
-        passcodeManager.authenticate(with: passcode) { [weak self] isSuccessful in
-            isSuccessful ? self?.completion?(true) : self?.handleValidationError()
+    override func inputDidComplete(with passcode: String) {
+//        model.handlers.processInput = { [weak self] in
+//            self?.handleProcessPasscode(passcode)
+//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.handleProcessPasscode(passcode)
         }
+        
+        model.state = .loading
+        refreshView()
     }
     
-    override func cancelInput() {
-        completion?(false)
-    }
-    
-    override func didResetInput() {
+    override func inputDidReset() {
         model.state = .normal
     }
     
+    override func cancelInput() {
+        completion?("false")
+    }
+    
     override func viewDidLoad() {
-        currentStep = .enterPasscode
+        model.title = Prompts.enterPasscodePrompt
         super.viewDidLoad()
     }
 }
 
 private extension ValidatePasscodePresenter {
     
-    func showValidationStart() {
-        model.state = .loading
-        refreshView()
+    func handleProcessPasscode(_ passcode: String) {
+        passcodeManager.authenticate(with: passcode) { [weak self] isSuccessful in
+            isSuccessful
+                ? self?.handleValidationSuccess()
+                : self?.handleValidationFailure()
+        }
     }
     
-    func handleValidationError() {
-        model.remainingAttempts > 0 ? showValidationError() : completion?(false)
+    func handleValidationSuccess() {
+        completion?("true")
     }
     
-    func showValidationError() {
-        model.remainingAttempts -= 1
+    func handleValidationFailure() {
+        guard model.remainingAttempts > 0 else {
+            completion?("false")
+            return
+        }
         
-        currentStep = .wrongPasscode
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.handleResetInput()
+        }
+        
+        model.title = Prompts.wrongPasscodePrompt
         model.state = .failure
         model.progressIndicator.state = .failure
-        
+        model.remainingAttempts -= 1
         updateProgressIndicatorAndRefreshView()
     }
 }

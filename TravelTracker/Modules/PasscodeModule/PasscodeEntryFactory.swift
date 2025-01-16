@@ -13,10 +13,7 @@ final class PasscodeEntryFactory: Factory {
     typealias Context = PasscodeModel
     
     func build(with context: PasscodeModel) throws -> PasscodeViewController {
-        let presenter = CreatePasscodePresenter(model: context, passcodeManager: PasscodeManager.shared)
-//        presenter.completion = { result in
-//            print("Passcode Module completed with \(result) result")
-//        }
+        let presenter = ValidatePasscodePresenter(model: context, passcodeManager: PasscodeManager.shared)
         presenter.completion = { result in
             print(result)
         }

@@ -20,7 +20,7 @@ struct PasscodeModel {
     var handlers = Handlers()
     var passcode: [Int] = []
     let passcodeLength: Int
-    var remainingAttempts: Int = 5
+    var remainingAttempts: Int = 58
 
 
     var canAddDigit: Bool {
@@ -75,5 +75,6 @@ extension PasscodeModel {
         var backspaceTap: Action?
         var cancelTap: Action?
         var resetInput: Action?
+        var processInput: Action?
     }
 }

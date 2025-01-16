@@ -74,8 +74,20 @@ private extension PasscodeView.ProgressIndicatorView {
         
         if model.state == .failure {
             animateIndicatorError {
-                model.handlers.resetInput?()
+                //model.handlers.resetInput?()
             }
+        }
+        
+        if model.state == .loading {
+            animateIndicatorInProgress {
+                //model.handlers.processInput?()
+            }
+        }
+    }
+    
+    func animateIndicatorInProgress(completion: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.animationDuration + 1) {
+            completion()
         }
     }
     
@@ -88,7 +100,7 @@ private extension PasscodeView.ProgressIndicatorView {
 
         layer.add(animation, forKey: "shake")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.resetInputDelay) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.resetInputDelay + 1) {
             completion()
         }
     }

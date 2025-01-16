@@ -16,7 +16,7 @@ final class CreatePasscodePresenter: PasscodePresenterDefault, PasscodeSetupModu
         case setupPasscode(storedPasscode: String?)
     }
 
-    enum Strings {
+    enum Prompts {
         static let enterPasscodePrompt = "Enter Passcode"
         static let wrongPasscodePrompt = "Wrong passcode"
         static let createPasscodePrompt = "Create Passcode"
@@ -33,11 +33,11 @@ final class CreatePasscodePresenter: PasscodePresenterDefault, PasscodeSetupModu
         super.init(model: model)
     }
     
-    override func didStartInput() {
+    override func inputDidStart() {
         model.progressIndicator.state = .normal
     }
     
-    override func didCompleteInput(with passcode: String) {
+    override func inputDidComplete(with passcode: String) {
         showValidationStart()
         
         switch currentStep {
@@ -63,12 +63,12 @@ final class CreatePasscodePresenter: PasscodePresenterDefault, PasscodeSetupModu
         completion?("Input has been canceled")
     }
     
-    override func didResetInput() {
+    override func inputDidReset() {
         model.state = .normal
     }
     
     override func viewDidLoad() {
-        model.title = Strings.enterPasscodePrompt
+        model.title = Prompts.enterPasscodePrompt
         super.viewDidLoad()
     }
 }
@@ -81,19 +81,19 @@ private extension CreatePasscodePresenter {
     }
     
     func handleSetupPasscode() {
-        model.title = Strings.createPasscodePrompt
+        model.title = Prompts.createPasscodePrompt
         currentStep = .setupPasscode(storedPasscode: nil)
-        resetInput()
+        handleResetInput()
     }
     
     func handleConfirmPasscode(using passcode: String) {
-        model.title = Strings.repeatPasscodePrompt
+        model.title = Prompts.repeatPasscodePrompt
         currentStep = .setupPasscode(storedPasscode: passcode)
-        resetInput()
+        handleResetInput()
     }
     
     func handlePasscodeMismatch() {
-        model.title = Strings.passcodeMismatchPrompt
+        model.title = Prompts.passcodeMismatchPrompt
         model.state = .failure
         refreshView()
     }
@@ -105,7 +105,7 @@ private extension CreatePasscodePresenter {
     func showValidationError() {
         model.remainingAttempts -= 1
         
-        model.title = Strings.wrongPasscodePrompt
+        model.title = Prompts.wrongPasscodePrompt
         model.state = .failure
         model.progressIndicator.state = .failure
         

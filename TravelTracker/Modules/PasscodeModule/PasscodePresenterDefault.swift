@@ -5,84 +5,6 @@
 import Foundation
 
 
-//protocol PasscodePresenterProtocol: PresenterProtocol {
-//    
-//    var viewController: PasscodeViewControllerProtocol? { get set }
-//    var model: PasscodeModel { get set }
-//    
-//    func didStartInput()
-//    func didCompleteInput(_ passcodeString: String)
-//    func didResetInput()
-//    func cancelInput()
-//    func refreshProgressIndicatorAndView()
-//    func refreshView()
-//}
-//
-//extension PasscodePresenterProtocol {
-//    
-//    func setupHandlers() {
-//        model.handlers.digitTap = { [weak self] in
-//            self?.handleDigitTap($0)
-//        }
-//        model.handlers.backspaceTap = { [weak self] in
-//            self?.handleBackspaceTap()
-//        }
-//        model.handlers.cancelTap = { [weak self] in
-//            self?.handleCancelTap()
-//        }
-//        model.handlers.resetInput = { [weak self] in
-//            self?.handleResetInput()
-//        }
-//    }
-//    
-//    func refreshProgressIndicatorAndView() {
-//        model.progressIndicator.updateProgress(with: model.passcode.count)
-//        refreshView()
-//        print(model.progressIndicator.circleStates.map { "\($0)" })
-//    }
-//    
-//    func refreshView() {
-//        viewController?.configure(with: model)
-//    }
-//}
-//
-//private extension PasscodePresenterProtocol {
-//    
-//    func handleDigitTap(_ digit: Int) {
-//        guard model.canAddDigit else { return }
-//
-//        if model.passcode.isEmpty {
-//            didStartInput()
-//        }
-//        
-//        model.passcode.append(digit)
-//        refreshProgressIndicatorAndView()
-//        
-//        if !model.canAddDigit {
-//            let passcodeString = model.passcode.map(String.init).joined()
-//            didCompleteInput(passcodeString)
-//        }
-//    }
-//    
-//    func handleResetInput() {
-//        model.passcode.removeAll()
-//        didResetInput()
-//        refreshProgressIndicatorAndView()
-//    }
-//    
-//    func handleBackspaceTap() {
-//        guard model.canRemoveDigit else { return }
-//        
-//        model.passcode.removeLast()
-//        refreshProgressIndicatorAndView()
-//    }
-//    
-//    func handleCancelTap() {
-//        cancelInput()
-//    }
-//}
-
-
 class PasscodePresenterDefault: PresenterProtocol {
 
     weak var viewController: PasscodeViewControllerProtocol?
@@ -92,15 +14,15 @@ class PasscodePresenterDefault: PresenterProtocol {
         self.model = model
     }
     
-    func didStartInput() {
+    func inputDidStart() {
         // Not implemented by default
     }
     
-    func didCompleteInput(with passcode: String) {
+    func inputDidComplete(with passcode: String) {
         // Not implemented by default
     }
     
-    func didResetInput() {
+    func inputDidReset() {
         // Not implemented by default
     }
     
@@ -116,9 +38,9 @@ class PasscodePresenterDefault: PresenterProtocol {
 
 extension PasscodePresenterDefault {
     
-    func resetInput() {
+    func handleResetInput() {
         model.passcode.removeAll()
-        didResetInput()
+        inputDidReset()
         updateProgressIndicatorAndRefreshView()
     }
     
@@ -146,7 +68,7 @@ private extension PasscodePresenterDefault {
             self?.handleCancelTap()
         }
         model.handlers.resetInput = { [weak self] in
-            self?.resetInput()
+            self?.handleResetInput()
         }
     }
     
@@ -154,7 +76,7 @@ private extension PasscodePresenterDefault {
         guard model.canAddDigit else { return }
 
         if model.passcode.isEmpty {
-            didStartInput()
+            inputDidStart()
         }
         
         model.passcode.append(digit)
@@ -162,7 +84,7 @@ private extension PasscodePresenterDefault {
         
         if !model.canAddDigit {
             let passcodeString = model.passcode.map(String.init).joined()
-            didCompleteInput(with: passcodeString)
+            inputDidComplete(with: passcodeString)
         }
     }
     

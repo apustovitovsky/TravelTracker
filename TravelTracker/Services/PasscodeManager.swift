@@ -37,7 +37,7 @@ final class PasscodeManager: PasscodeManagerProtocol {
         } else {
             isLoggedIn = true
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
             completion(self?.isLoggedIn ?? false)
         }
 
