@@ -7,13 +7,13 @@ import RouteComposer
 
 // MARK: - PinEntryFactory
 
-final class PasscodeEntryFactory: Factory {
+final class PasscodeModuleFactory: Factory {
     
     typealias ViewController = PasscodeViewController
     typealias Context = PasscodeModel
     
     func build(with context: PasscodeModel) throws -> PasscodeViewController {
-        let presenter = ValidatePasscodePresenter(model: context, passcodeManager: PasscodeManager.shared)
+        let presenter = PasscodeValidationPresenter(model: context, passcodeManager: PasscodeManager.shared)
         presenter.completion = { result in
             print(result)
         }

@@ -24,11 +24,10 @@
 		8A0C63372CA9F97300AE8C65 /* PinCodeView.KeypadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C63362CA9F96B00AE8C65 /* PinCodeView.KeypadView.swift */; };
 		8A22A48D2D33CDED007A1F7D /* PresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A22A48C2D33CDE9007A1F7D /* PresenterProtocol.swift */; };
 		8A22A4912D33EB03007A1F7D /* PasscodePresenterDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A22A4902D33EAEB007A1F7D /* PasscodePresenterDefault.swift */; };
-		8A22A4932D33F358007A1F7D /* ValidatePasscodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A22A4922D33F34E007A1F7D /* ValidatePasscodePresenter.swift */; };
-		8A22A4952D33FC36007A1F7D /* CreatePasscodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A22A4942D33FC2D007A1F7D /* CreatePasscodePresenter.swift */; };
+		8A22A4932D33F358007A1F7D /* PasscodeValidationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A22A4922D33F34E007A1F7D /* PasscodeValidationPresenter.swift */; };
+		8A22A4952D33FC36007A1F7D /* PasscodeSetupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A22A4942D33FC2D007A1F7D /* PasscodeSetupPresenter.swift */; };
 		8A2C4E7C2D0B610400C8CB01 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2C4E7B2D0B60FB00C8CB01 /* GridView.swift */; };
 		8A2C4E7E2D0B62BD00C8CB01 /* KeypadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2C4E7D2D0B62AB00C8CB01 /* KeypadView.swift */; };
-		8A34CD962CE8D18D00D055A1 /* PasscodeEntryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A34CD952CE8D18100D055A1 /* PasscodeEntryPresenter.swift */; };
 		8A34CD992CE8D1CD00D055A1 /* PasscodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A34CD982CE8D1C900D055A1 /* PasscodeModel.swift */; };
 		8A34CD9B2CE8D26500D055A1 /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A34CD9A2CE8D25D00D055A1 /* PasscodeViewController.swift */; };
 		8A34CD9E2CE8D29300D055A1 /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A34CD9D2CE8D28E00D055A1 /* PasscodeView.swift */; };
@@ -36,7 +35,7 @@
 		8A37A64B2CEA434C00372155 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A37A64A2CEA434900372155 /* Coordinator.swift */; };
 		8A37A64F2CEB4F2100372155 /* PasscodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A37A64E2CEB4F1C00372155 /* PasscodeManager.swift */; };
 		8A37A6512CEB792F00372155 /* PromptLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A37A6502CEB791600372155 /* PromptLabel.swift */; };
-		8A37A6532CEBC8F300372155 /* PasscodeEntryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A37A6522CEBC8E400372155 /* PasscodeEntryFactory.swift */; };
+		8A37A6532CEBC8F300372155 /* PasscodeModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A37A6522CEBC8E400372155 /* PasscodeModuleFactory.swift */; };
 		8A7277C82C9728BD00C03C73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277C72C9728BD00C03C73 /* AppDelegate.swift */; };
 		8A7277CA2C9728BD00C03C73 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277C92C9728BD00C03C73 /* SceneDelegate.swift */; };
 		8A7277D22C9728BD00C03C73 /* TravelTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A7277D02C9728BD00C03C73 /* TravelTracker.xcdatamodeld */; };
@@ -65,11 +64,10 @@
 		8A0C63362CA9F96B00AE8C65 /* PinCodeView.KeypadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.KeypadView.swift; sourceTree = "<group>"; };
 		8A22A48C2D33CDE9007A1F7D /* PresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterProtocol.swift; sourceTree = "<group>"; };
 		8A22A4902D33EAEB007A1F7D /* PasscodePresenterDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodePresenterDefault.swift; sourceTree = "<group>"; };
-		8A22A4922D33F34E007A1F7D /* ValidatePasscodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatePasscodePresenter.swift; sourceTree = "<group>"; };
-		8A22A4942D33FC2D007A1F7D /* CreatePasscodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodePresenter.swift; sourceTree = "<group>"; };
+		8A22A4922D33F34E007A1F7D /* PasscodeValidationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeValidationPresenter.swift; sourceTree = "<group>"; };
+		8A22A4942D33FC2D007A1F7D /* PasscodeSetupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeSetupPresenter.swift; sourceTree = "<group>"; };
 		8A2C4E7B2D0B60FB00C8CB01 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		8A2C4E7D2D0B62AB00C8CB01 /* KeypadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypadView.swift; sourceTree = "<group>"; };
-		8A34CD952CE8D18100D055A1 /* PasscodeEntryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeEntryPresenter.swift; sourceTree = "<group>"; };
 		8A34CD982CE8D1C900D055A1 /* PasscodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeModel.swift; sourceTree = "<group>"; };
 		8A34CD9A2CE8D25D00D055A1 /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		8A34CD9D2CE8D28E00D055A1 /* PasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
@@ -77,7 +75,7 @@
 		8A37A64A2CEA434900372155 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		8A37A64E2CEB4F1C00372155 /* PasscodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManager.swift; sourceTree = "<group>"; };
 		8A37A6502CEB791600372155 /* PromptLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptLabel.swift; sourceTree = "<group>"; };
-		8A37A6522CEBC8E400372155 /* PasscodeEntryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeEntryFactory.swift; sourceTree = "<group>"; };
+		8A37A6522CEBC8E400372155 /* PasscodeModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeModuleFactory.swift; sourceTree = "<group>"; };
 		8A7277C42C9728BD00C03C73 /* TravelTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7277C72C9728BD00C03C73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A7277C92C9728BD00C03C73 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,14 +150,11 @@
 		8A34CD972CE8D1A200D055A1 /* PasscodeModule */ = {
 			isa = PBXGroup;
 			children = (
+				8AA0169B2D48CC8600964091 /* Presenters */,
 				8A34CD9C2CE8D28300D055A1 /* Views */,
-				8A37A6522CEBC8E400372155 /* PasscodeEntryFactory.swift */,
-				8A34CD9A2CE8D25D00D055A1 /* PasscodeViewController.swift */,
+				8A37A6522CEBC8E400372155 /* PasscodeModuleFactory.swift */,
 				8A34CD982CE8D1C900D055A1 /* PasscodeModel.swift */,
-				8A22A4902D33EAEB007A1F7D /* PasscodePresenterDefault.swift */,
-				8A22A4922D33F34E007A1F7D /* ValidatePasscodePresenter.swift */,
-				8A22A4942D33FC2D007A1F7D /* CreatePasscodePresenter.swift */,
-				8A34CD952CE8D18100D055A1 /* PasscodeEntryPresenter.swift */,
+				8A34CD9A2CE8D25D00D055A1 /* PasscodeViewController.swift */,
 			);
 			path = PasscodeModule;
 			sourceTree = "<group>";
@@ -263,6 +258,16 @@
 			path = Flows;
 			sourceTree = "<group>";
 		};
+		8AA0169B2D48CC8600964091 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				8A22A4902D33EAEB007A1F7D /* PasscodePresenterDefault.swift */,
+				8A22A4922D33F34E007A1F7D /* PasscodeValidationPresenter.swift */,
+				8A22A4942D33FC2D007A1F7D /* PasscodeSetupPresenter.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -355,17 +360,16 @@
 				8A0C63272CA18EAD00AE8C65 /* PinCodeViewController.swift in Sources */,
 				8A22A4912D33EB03007A1F7D /* PasscodePresenterDefault.swift in Sources */,
 				8A7277D22C9728BD00C03C73 /* TravelTracker.xcdatamodeld in Sources */,
-				8A22A4952D33FC36007A1F7D /* CreatePasscodePresenter.swift in Sources */,
+				8A22A4952D33FC36007A1F7D /* PasscodeSetupPresenter.swift in Sources */,
 				8A7277C82C9728BD00C03C73 /* AppDelegate.swift in Sources */,
 				8A9A2E082CB6F874002E8C63 /* FlowHolder.swift in Sources */,
 				8A34CD9B2CE8D26500D055A1 /* PasscodeViewController.swift in Sources */,
-				8A34CD962CE8D18D00D055A1 /* PasscodeEntryPresenter.swift in Sources */,
-				8A37A6532CEBC8F300372155 /* PasscodeEntryFactory.swift in Sources */,
+				8A37A6532CEBC8F300372155 /* PasscodeModuleFactory.swift in Sources */,
 				8A0C631C2CA084E800AE8C65 /* Handler.swift in Sources */,
 				8A22A48D2D33CDED007A1F7D /* PresenterProtocol.swift in Sources */,
 				8A7277CA2C9728BD00C03C73 /* SceneDelegate.swift in Sources */,
 				8A37A64B2CEA434C00372155 /* Coordinator.swift in Sources */,
-				8A22A4932D33F358007A1F7D /* ValidatePasscodePresenter.swift in Sources */,
+				8A22A4932D33F358007A1F7D /* PasscodeValidationPresenter.swift in Sources */,
 				8A0C63172CA0187800AE8C65 /* DefaultVC.swift in Sources */,
 				8A34CD9E2CE8D29300D055A1 /* PasscodeView.swift in Sources */,
 				8A34CDA22CE8E44200D055A1 /* ProgressIndicatorView.swift in Sources */,

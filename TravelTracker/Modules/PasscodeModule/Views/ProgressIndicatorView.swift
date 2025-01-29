@@ -56,7 +56,7 @@ private extension PasscodeView.ProgressIndicatorView {
             addArrangedSubview(circleView)
             circleView.snp.makeConstraints { $0.width.height.equalTo(Constants.circleSize) }
             
-            switch model.progressIndicator.circleStates[index] {
+            switch model.progressIndicator.indicatorStates[index] {
             case .filled:
                 circleView.backgroundColor = circleColorFilled
                 circleView.transform = CGAffineTransform(scaleX: Constants.circleScaleFilled, y: Constants.circleScaleFilled)
@@ -73,36 +73,17 @@ private extension PasscodeView.ProgressIndicatorView {
         }
         
         if model.state == .failure {
-            animateIndicatorError {
-                //model.handlers.resetInput?()
-            }
-        }
-        
-        if model.state == .loading {
-            animateIndicatorInProgress {
-                //model.handlers.processInput?()
-            }
+            animateIndicatorFailure()
         }
     }
     
-    func animateIndicatorInProgress(completion: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.animationDuration + 1) {
-            completion()
-        }
-    }
-    
-    func animateIndicatorError(completion: @escaping () -> Void) {
+    func animateIndicatorFailure() {
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         animation.duration = Constants.failureAnimationDuration
         animation.values = Constants.snakeOffsets
         animation.isRemovedOnCompletion = true
-
         layer.add(animation, forKey: "shake")
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.resetInputDelay + 1) {
-            completion()
-        }
     }
     
     func animateCircle(_ circleView: UIView, scale: Double, backgroundColor: UIColor?) {

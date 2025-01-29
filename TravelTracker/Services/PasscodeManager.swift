@@ -6,7 +6,7 @@ import Foundation
 
 
 protocol PasscodeManagerProtocol: AnyObject {
-    func authenticate(with: String, _: @escaping Handler<Bool>)
+    func validate(with: String, _: @escaping Handler<Bool>)
     func isPinStored() -> Bool
 }
 
@@ -30,7 +30,7 @@ final class PasscodeManager: PasscodeManagerProtocol {
         return !isLoggedIn && isPinStored()
     }
     
-    func authenticate(with passcode: String, _ completion: @escaping Handler<Bool>) {
+    func validate(with passcode: String, _ completion: @escaping Handler<Bool>) {
 
         if let storedPasscode = keychainService.load(key: "PIN") {
             isLoggedIn = passcode == storedPasscode

@@ -64,7 +64,7 @@ private extension PinCodeView.IndicatorView {
     }
     
     func AnimateWrongPinEffect(for model: PinCodeModel.IndicatorView) {
-        let shakeDuration = 0.1
+        //let shakeDuration = 0.1
         let shakeOffset: CGFloat = 10
 
         enqueueAnimation({

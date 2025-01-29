@@ -21,7 +21,7 @@ class GridView: UIStackView {
     
     private func setupView() {
         self.axis = .vertical
-        self.spacing = 40
+        self.spacing = 32
         self.distribution = .fillEqually
     }
 
@@ -35,7 +35,7 @@ class GridView: UIStackView {
         (0..<rows).forEach { row in
             let rowStack = UIStackView()
             rowStack.axis = .horizontal
-            rowStack.spacing = 60
+            rowStack.spacing = 48
             rowStack.distribution = self.distribution
             
             (0..<cols).forEach { col in

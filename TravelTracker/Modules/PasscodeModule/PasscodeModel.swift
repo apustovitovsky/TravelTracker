@@ -10,7 +10,7 @@ struct PasscodeModel {
     
     enum State: String {
         case normal
-        case loading
+        case pending
         case failure
     }
     
@@ -42,12 +42,7 @@ extension PasscodeModel {
     
     struct ProgressIndicator {
         
-        enum State: String {
-            case normal
-            case failure
-        }
-        
-        enum CircleState {
+        enum indicatorState {
             case filled
             case toFill
             case empty
@@ -55,14 +50,14 @@ extension PasscodeModel {
         }
         
         var state: State = .normal
-        var circleStates: [CircleState]
+        var indicatorStates: [indicatorState]
         
         init(_ length: Int) {
-            self.circleStates = Array(repeating: .empty, count: length)
+            self.indicatorStates = Array(repeating: .empty, count: length)
         }
         
-        mutating func updateProgress(with value: Int) {
-            self.circleStates = circleStates.enumerated().map{ index, state in
+        mutating func updateIndicatorStates(with value: Int) {
+            self.indicatorStates = indicatorStates.enumerated().map{ index, state in
                 return index < value
                     ? (state == .toFill || state == .filled) ? .filled : .toFill
                     : (state == .toClear || state == .empty) ? .empty : .toClear
@@ -74,7 +69,5 @@ extension PasscodeModel {
         var digitTap: Handler<Int>?
         var backspaceTap: Action?
         var cancelTap: Action?
-        var resetInput: Action?
-        var processInput: Action?
     }
 }

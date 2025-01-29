@@ -31,33 +31,33 @@ class PasscodePresenterDefault: PresenterProtocol {
     }
  
     func viewDidLoad() {
-        setupHandlers()
-        refreshView()
+        configureHandlers()
+        updateView()
     }
 }
 
 extension PasscodePresenterDefault {
     
-    func handleResetInput() {
+    func resetInput() {
         model.passcode.removeAll()
         inputDidReset()
-        updateProgressIndicatorAndRefreshView()
+        updateProgressIndicator()
+        updateView()
     }
     
-    func updateProgressIndicatorAndRefreshView() {
-        model.progressIndicator.updateProgress(with: model.passcode.count)
-        refreshView()
-        print(model.progressIndicator.circleStates.map { "\($0)" })
+    func updateProgressIndicator() {
+        model.progressIndicator.updateIndicatorStates(with: model.passcode.count)
+        print(model.progressIndicator.indicatorStates.map { "\($0)" })
     }
     
-    func refreshView() {
+    func updateView() {
         viewController?.configure(with: model)
     }
 }
 
 private extension PasscodePresenterDefault {
     
-    func setupHandlers() {
+    func configureHandlers() {
         model.handlers.digitTap = { [weak self] in
             self?.handleDigitTap($0)
         }
@@ -66,9 +66,6 @@ private extension PasscodePresenterDefault {
         }
         model.handlers.cancelTap = { [weak self] in
             self?.handleCancelTap()
-        }
-        model.handlers.resetInput = { [weak self] in
-            self?.handleResetInput()
         }
     }
     
@@ -80,7 +77,8 @@ private extension PasscodePresenterDefault {
         }
         
         model.passcode.append(digit)
-        updateProgressIndicatorAndRefreshView()
+        updateProgressIndicator()
+        updateView()
         
         if !model.canAddDigit {
             let passcodeString = model.passcode.map(String.init).joined()
@@ -92,7 +90,8 @@ private extension PasscodePresenterDefault {
         guard model.canRemoveDigit else { return }
         
         model.passcode.removeLast()
-        updateProgressIndicatorAndRefreshView()
+        updateProgressIndicator()
+        updateView()
     }
     
     func handleCancelTap() {
