@@ -7,7 +7,7 @@ import SnapKit
 
 //MARK: - PasscodeEntryViewProtocol
 
-protocol PasscodeEntryViewProtocol: UIView {
+protocol PasscodeViewProtocol: UIView {
     func configure(with model: PasscodeModel)
 }
 
@@ -37,7 +37,7 @@ final class PasscodeView: UIView {
 
 //MARK: - PasscodeEntryView Configurable
 
-extension PasscodeView: PasscodeEntryViewProtocol {
+extension PasscodeView: PasscodeViewProtocol {
 
     func configure(with model: PasscodeModel) {
         promptLabel.configure(with: model)

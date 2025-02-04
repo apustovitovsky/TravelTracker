@@ -3,15 +3,10 @@
 //
 
 import Foundation
+import RouteComposer
 
-
-protocol PasscodeSetupModuleOutput: AnyObject {
-    var completion: Handler<String>? { get set }
-}
-
-final class PasscodeSetupPresenter: PasscodePresenterDefault, PasscodeSetupModuleOutput {
+final class PasscodeSetupPresenter: PasscodePresenterDefault {
     
-    var completion: Handler<String>?
     private let passcodeManager: PasscodeManagerProtocol
     private var currentStep: Steps = .enterPasscode {
         didSet {
@@ -34,7 +29,7 @@ final class PasscodeSetupPresenter: PasscodePresenterDefault, PasscodeSetupModul
     }
     
     override func cancelInput() {
-        completion?("Input has been canceled")
+        cancelPasscodeValidation()
     }
     
     override func inputDidStart() {
@@ -94,7 +89,7 @@ private extension PasscodeSetupPresenter {
     }
     
     func onValidationFailure() {
-        model.remainingAttempts > 0 ? resumeToPasscodeValidation() : completePasscodeValidation()
+        model.remainingAttempts > 0 ? resumeToPasscodeValidation() : cancelPasscodeValidation()
         model.remainingAttempts -= 1
     }
     
@@ -108,8 +103,8 @@ private extension PasscodeSetupPresenter {
         }
     }
     
-    func completePasscodeValidation() {
-        completion?("false")
+    func cancelPasscodeValidation() {
+        completion?(.failure(RoutingError.generic(.init("Passcode validation failed"))))
     }
     
     func storePasscode(_ passcode: String) {
@@ -123,7 +118,7 @@ private extension PasscodeSetupPresenter {
     }
     
     func onConfirmationSuccess() {
-        completion?("Passcode succefully created")
+        completion?(.success)
     }
     
     func onConfirmationFailure() {

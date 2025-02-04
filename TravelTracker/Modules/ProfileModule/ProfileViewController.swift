@@ -4,25 +4,21 @@
 
 import UIKit
 
-//MARK: - PasscodeViewControllerProtocol
 
-protocol PasscodeViewControllerProtocol: AnyObject {
+protocol ProfileViewControllerProtocol: AnyObject {
     func configure(with model: PasscodeModel)
 }
 
-//MARK: - PasscodeEntryViewController
 
-final class PasscodeViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
-    let presenter: PasscodePresenterProtocol
+    private let presenter: PresenterProtocol
     private let customView: PasscodeViewProtocol
     
-    init(presenter: PasscodePresenterProtocol,
-         customView: PasscodeViewProtocol) {
-            
-            self.presenter = presenter
-            self.customView = customView
-            super.init(nibName: nil, bundle: nil)
+    init(presenter: PresenterProtocol, customView: PasscodeViewProtocol) {
+        self.presenter = presenter
+        self.customView = customView
+        super.init(nibName: nil, bundle: nil)
     }
     
     @available(*, unavailable)
@@ -42,7 +38,7 @@ final class PasscodeViewController: UIViewController {
 
 //MARK: - PasscodeEntryViewController Extension
 
-extension PasscodeViewController: PasscodeViewControllerProtocol {
+extension ProfileViewController: PasscodeViewControllerProtocol {
     
     func configure(with model: PasscodeModel) {
         customView.configure(with: model)

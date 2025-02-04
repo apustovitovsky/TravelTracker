@@ -5,22 +5,20 @@
 import Foundation
 import RouteComposer
 
-// MARK: - PinEntryFactory
 
 final class PasscodeModuleFactory: Factory {
     
     typealias ViewController = PasscodeViewController
-    typealias Context = PasscodeModel
+    typealias Context = Any?
     
-    func build(with context: PasscodeModel) throws -> PasscodeViewController {
-        let presenter = PasscodeValidationPresenter(model: context, passcodeManager: PasscodeManager.shared)
-        presenter.completion = { result in
-            print(result)
-        }
+    func build(with context: Any?) throws -> PasscodeViewController {
+        let model = PasscodeModel(length: 4)
+        let presenter = PasscodeValidationPresenter(model: model, passcodeManager: PasscodeManager.shared)
         let view = PasscodeView()
         let viewController = PasscodeViewController(presenter: presenter, customView: view)
         presenter.viewController = viewController
         return viewController
     }
 }
+
 

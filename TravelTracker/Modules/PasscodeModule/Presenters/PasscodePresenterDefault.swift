@@ -4,9 +4,13 @@
 
 import Foundation
 
+protocol PasscodePresenterProtocol: PresenterProtocol {
+    var completion: ((_: PasscodeValidationResult) -> Void)? { get set }
+}
 
-class PasscodePresenterDefault: PresenterProtocol {
-
+class PasscodePresenterDefault: PasscodePresenterProtocol {
+    
+    var completion: ((_: PasscodeValidationResult) -> Void)?
     weak var viewController: PasscodeViewControllerProtocol?
     var model: PasscodeModel
     

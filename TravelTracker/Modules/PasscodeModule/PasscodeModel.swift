@@ -2,9 +2,20 @@
 //  Created by Алексей on 16.11.2024.
 //
 
-import UIKit
+import Foundation
 
-//MARK: - PasscodeEntryModel
+public enum PasscodeValidationResult {
+    
+    case success
+    case failure(Error)
+}
+
+public extension PasscodeValidationResult {
+    
+    var isSuccessful: Bool {
+        if case .success = self { true } else { false }
+    }
+}
 
 struct PasscodeModel {
     
@@ -20,7 +31,7 @@ struct PasscodeModel {
     var handlers = Handlers()
     var passcode: [Int] = []
     let passcodeLength: Int
-    var remainingAttempts: Int = 58
+    var remainingAttempts: Int = 1
 
 
     var canAddDigit: Bool {

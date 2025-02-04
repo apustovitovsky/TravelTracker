@@ -72,11 +72,11 @@ enum ApplicationConfiguration {
     .with(PasscodeModuleFactory())
     .assemble()
     
-    static var stepToHome = StepAssembly(
-        finder: ClassFinder<PasscodeViewController, PasscodeModel>(),
-        factory: NilFactory())
-        .from(tabBarScreen)
-        .assemble()
+//    static var stepToHome = StepAssembly(
+//        finder: ClassFinder<PasscodeViewController, PasscodeModel>(),
+//        factory: NilFactory())
+//        .from(tabBarScreen)
+//        .assemble()
 }
 
 

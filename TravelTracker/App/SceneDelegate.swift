@@ -13,10 +13,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UIViewController()
         window?.makeKeyAndVisible()
         
-        let step = ApplicationConfiguration.stepToHome
-        let model = PasscodeModel(length: 4)
+        //let step = ApplicationConfiguration.stepToHome
+        //let model = PasscodeModel(length: 6)
 
-        try? DefaultRouter().navigate(to: Destination(to: step, with: model))
+        //try? DefaultRouter().navigate(to: Destination(to: step, with: model))
+        try? DefaultRouter().navigate(to: AppConfiguration.profileScreen, with: nil)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            try? DefaultRouter().navigate(to: AppConfiguration.profileScreen, with: nil)
+//        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
